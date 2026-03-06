@@ -56,11 +56,6 @@ y = x * 2
 
 # 型情報の確認（iex の i コマンドに相当）
 IO.inspect(42,       label: "integer")
-IO.inspect(3.14,     label: "float")
-IO.inspect(:hello,   label: "atom")
-IO.inspect("world",  label: "string")
-IO.inspect([1,2,3],  label: "list")
-IO.inspect({:ok, 1}, label: "tuple")
 
 # 最後の式が返り値として表示される
 {:welcome, "Elixir!"}`,
