@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="code-language" content="elixir" />
+  <title>Elixir Tour</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Cross-Origin Isolation for SharedArrayBuffer (needed for WASM threads) -->
+  <script src="./coi-serviceworker.js"></script>
+</head>
+<body>
+  <div id="loading">
+    <div class="spinner"></div>
+    <div>Elixir VM を読み込み中...</div>
+  </div>
+
+  <div id="app" style="display: none;">
+    <header>
+      <h1>Elixir Tour <span>— インタラクティブチュートリアル</span></h1>
+      <nav class="nav-controls">
+        <select id="page-select"></select>
+        <button id="prev-btn">&larr; 前へ</button>
+        <span id="page-indicator">1 / 5</span>
+        <button id="next-btn">次へ &rarr;</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="lesson-panel">
+        <div class="lesson-header">
+          <h2 id="lesson-title"></h2>
+        </div>
+        <div class="lesson-body" id="lesson-content"></div>
+      </section>
+
+      <section class="editor-panel">
+        <div class="editor-area">
+          <div class="editor-toolbar">
+            <span class="label">Editor</span>
+            <button id="run-btn">Run</button>
+            <button id="reset-btn">Reset</button>
+            <span class="shortcut">Ctrl+Enter で実行</span>
+          </div>
+          <textarea id="code-editor" spellcheck="false"></textarea>
+        </div>
+
+        <div class="output-area">
+          <div class="output-header">
+            <span class="label">Output</span>
+            <span id="status"></span>
+          </div>
+          <pre id="output"></pre>
+          <div id="result"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
