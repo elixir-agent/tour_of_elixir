@@ -7,14 +7,7 @@
   <title>Elixir Tour</title>
   <link rel="stylesheet" href="style.css" />
   <!-- Cross-Origin Isolation for SharedArrayBuffer (needed for WASM threads) -->
-  <!-- On GitHub Pages, a Service Worker injects COOP/COEP headers instead. -->
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/coi-serviceworker.js").then(() => {
-        if (!crossOriginIsolated) location.reload();
-      });
-    }
-  </script>
+  <script src="./coi-serviceworker.js"></script>
 </head>
 <body>
   <div id="loading">
