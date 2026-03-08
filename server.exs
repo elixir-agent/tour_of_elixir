@@ -38,7 +38,7 @@ end
 bandit = {Bandit, plug: Router, scheme: :http, port: Keyword.get(opts, :port, 4000)}
 {:ok, _} = Supervisor.start_link([bandit], strategy: :one_for_one)
 
-# unless running from IEx, sleep indefinitely so we can serve requests
+# unless running from IEx, sleep idenfinitely so we can serve requests
 unless IEx.started?() do
-  Process.sleep(:infinity)
+  IO.getn("Press enter to exit\n")
 end

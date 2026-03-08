@@ -1,5 +1,5 @@
 export const lessons = [
-  {
+{
     chapter: "Ch.1: Welcome",
     title: "ようこそ",
     description: `
@@ -28,7 +28,7 @@ IO.inspect(%{a: 1, b: 2}, label: "マップ")
 # 最後の式の値が => の後に表示されます
 "Welcome to Elixir Tour!"`,
   },
-  {
+{
     chapter: "Ch.1: Welcome",
     title: "IEx で試す",
     description: `
@@ -56,11 +56,16 @@ y = x * 2
 
 # 型情報の確認（iex の i コマンドに相当）
 IO.inspect(42,       label: "integer")
+IO.inspect(3.14,     label: "float")
+IO.inspect(:hello,   label: "atom")
+IO.inspect("world",  label: "string")
+IO.inspect([1,2,3],  label: "list")
+IO.inspect({:ok, 1}, label: "tuple")
 
 # 最後の式が返り値として表示される
 {:welcome, "Elixir!"}`,
   },
-  {
+{
     chapter: "Ch.1: Welcome",
     title: "Elixir の特徴",
     description: `
@@ -116,7 +121,7 @@ compose = fn f, g -> fn x -> f.(g.(x)) end end
 sextuple = compose.(double, triple)
 IO.puts("sextuple(5) = \#{sextuple.(5)}")`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "基本型",
     description: `
@@ -164,7 +169,7 @@ IO.puts(":hello is atom? \#{is_atom(:hello)}")
 # 任意精度整数
 IO.inspect(2 ** 64)`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "演算子",
     description: `
@@ -214,7 +219,7 @@ IO.puts("Hello" <> " " <> "World")
 IO.inspect([1, 2] ++ [3, 4])
 IO.inspect([1, 2, 3, 2, 1] -- [2])`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "変数と不変性",
     description: `
@@ -257,7 +262,7 @@ is_admin  = false
 max_retry = 3
 IO.inspect({user_name, is_admin, max_retry})`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "整数と浮動小数点数",
     description: `
@@ -309,7 +314,7 @@ IO.puts(:math.sqrt(16))
 IO.puts(:math.pi())
 IO.puts(:math.log(1))`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "アトムとブーリアン",
     description: `
@@ -358,7 +363,7 @@ IO.puts(not true)         # false
 IO.puts(nil || "default") # "default" (&&/|| は任意値)
 IO.puts(false && "never") # false`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "タプル",
     description: `
@@ -394,25 +399,9 @@ IO.inspect(t)  # 元は変わらない
 IO.inspect(Tuple.to_list(t))
 
 # 関数の戻り値パターン（最重要な使い方）
-parse = fn str ->
-  case Integer.parse(str) do
-    {n, ""}  -> {:ok, n}
-    {n, rem} -> {:ok_with_remainder, n, rem}
-    :error   -> {:error, "invalid: \#{str}"}
-  end
-end
-
-IO.inspect(parse.("42"))
-IO.inspect(parse.("42abc"))
-IO.inspect(parse.("abc"))
-
-# パターンマッチで安全に扱う
-case File.read("/nonexistent") do
-  {:ok, content}   -> IO.puts("内容: \#{content}")
-  {:error, reason} -> IO.puts("エラー: \#{reason}")
-end`,
+{:ok, n} = Map.fetch(%{a: 1, b: 2}, :b)`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "リスト",
     description: `
@@ -460,7 +449,7 @@ IO.puts(is_list({1, 2}))   # false（タプルはリストではない）
 charlist = ~c"hello"
 IO.inspect(charlist)          # [104, 101, 108, 108, 111]`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "マップ",
     description: `
@@ -512,7 +501,7 @@ IO.puts(mixed[42])
 extra = %{hobby: "coding", lang: "Elixir"}
 IO.inspect(Map.merge(user, extra))`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "キーワードリスト",
     description: `
@@ -549,22 +538,9 @@ IO.inspect(Keyword.get_values(dup, :a))  # [1, 3]
 updated = Keyword.put(opts, :timeout, 10000)
 IO.inspect(updated)
 deleted = Keyword.delete(opts, :verbose)
-IO.inspect(deleted)
-
-# 関数のオプション引数として（最後の引数は [] 省略可）
-defmodule Logger do
-  def log(msg, opts \\\\ []) do
-    level = Keyword.get(opts, :level, :info)
-    tag   = Keyword.get(opts, :tag, "APP")
-    IO.puts("[\#{level}][\#{tag}] \#{msg}")
-  end
-end
-
-Logger.log("起動しました")
-Logger.log("エラー発生", level: :error, tag: "AUTH")
-Logger.log("デバッグ情報", level: :debug)`,
+IO.inspect(deleted)`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "範囲（Range）",
     description: `
@@ -610,7 +586,7 @@ case 7 do
   _                  -> IO.puts("大きい")
 end`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "nil と存在確認",
     description: `
@@ -662,7 +638,7 @@ data = %{a: 1}
 IO.puts(Map.get(data, :b, "デフォルト"))
 IO.puts(Map.get(data, :a, "デフォルト"))`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "型変換と型チェック",
     description: `
@@ -709,7 +685,7 @@ IO.puts(to_string(:hello))
 IO.puts(to_string(3.14))
 IO.puts(to_string([1, 2, 3]))  # !`,
   },
-  {
+{
     chapter: "Ch.2: 基本型と値",
     title: "バイナリとビット列",
     description: `
@@ -754,7 +730,39 @@ IO.puts("rest:  \#{rest}")
 bytes = :binary.bin_to_list("ABC")
 IO.inspect(bytes)               # [65, 66, 67]`,
   },
-  {
+{
+    chapter: "Ch.2: 基本型と値",
+    title: "MapSet",
+    description: `
+<h2>MapSet</h2>
+<p><code>MapSet</code> は重複なしの集合型です。<code>MapSet.new/1</code> でリストから作成します。</p>
+<ul>
+  <li><code>MapSet.union/2</code> — 和集合</li>
+  <li><code>MapSet.intersection/2</code> — 積集合</li>
+  <li><code>MapSet.difference/2</code> — 差集合</li>
+  <li><code>MapSet.member?/2</code> — メンバー確認（O(log n)）</li>
+</ul>
+`,
+    defaultCode: `a = MapSet.new([1, 2, 3, 4])
+b = MapSet.new([3, 4, 5, 6])
+
+IO.inspect(MapSet.union(a, b))        # {1,2,3,4,5,6}
+IO.inspect(MapSet.intersection(a, b)) # {3,4}
+IO.inspect(MapSet.difference(a, b))   # {1,2}
+IO.puts(MapSet.member?(a, 2))         # true
+IO.puts(MapSet.subset?(MapSet.new([1,2]), a)) # true
+IO.puts(MapSet.size(a))               # 4
+
+# リストの重複除去
+list = [1, 2, 3, 2, 1, 4, 3, 5]
+unique = list |> MapSet.new() |> MapSet.to_list()
+IO.inspect(Enum.sort(unique))
+
+# Enum と組み合わせ（MapSet は Enumerable）
+IO.puts(Enum.sum(a))
+IO.inspect(Enum.filter(a, &(&1 > 2)))`,
+  },
+{
     chapter: "Ch.2: 基本型と値",
     title: "おめでとうございます！（Ch.2）",
     description: `
@@ -810,39 +818,7 @@ sum = 1..10
   |> Enum.sum()
 IO.puts("偶数の二乗和: \#{sum}")`,
   },
-  {
-    chapter: "Ch.2: 基本型と値",
-    title: "MapSet と集合演算",
-    description: `
-<h2>MapSet</h2>
-<p><code>MapSet</code> は重複なしの集合型です。<code>MapSet.new/1</code> でリストから作成します。</p>
-<ul>
-  <li><code>MapSet.union/2</code> — 和集合</li>
-  <li><code>MapSet.intersection/2</code> — 積集合</li>
-  <li><code>MapSet.difference/2</code> — 差集合</li>
-  <li><code>MapSet.member?/2</code> — メンバー確認（O(log n)）</li>
-</ul>
-`,
-    defaultCode: `a = MapSet.new([1, 2, 3, 4])
-b = MapSet.new([3, 4, 5, 6])
-
-IO.inspect(MapSet.union(a, b))        # {1,2,3,4,5,6}
-IO.inspect(MapSet.intersection(a, b)) # {3,4}
-IO.inspect(MapSet.difference(a, b))   # {1,2}
-IO.puts(MapSet.member?(a, 2))         # true
-IO.puts(MapSet.subset?(MapSet.new([1,2]), a)) # true
-IO.puts(MapSet.size(a))               # 4
-
-# リストの重複除去
-list = [1, 2, 3, 2, 1, 4, 3, 5]
-unique = list |> MapSet.new() |> MapSet.to_list()
-IO.inspect(Enum.sort(unique))
-
-# Enum と組み合わせ（MapSet は Enumerable）
-IO.puts(Enum.sum(a))
-IO.inspect(Enum.filter(a, &(&1 > 2)))`,
-  },
-  {
+{
     chapter: "Ch.3: パターンマッチ",
     title: "パターンマッチ",
     description: `
@@ -910,7 +886,7 @@ IO.puts(describe.([]))
 IO.puts(describe.([:a]))
 IO.puts(describe.([:a, :b, :c]))`,
   },
-  {
+{
     chapter: "Ch.3: パターンマッチ",
     title: "マッチ演算子",
     description: `
@@ -954,7 +930,7 @@ IO.puts("x=\#{x}, result=\#{result}")
 # パターンマッチ失敗の例（コメントを外すとエラー）
 # {:ok, val} = {:error, "not found"}`,
   },
-  {
+{
     chapter: "Ch.3: パターンマッチ",
     title: "ピン演算子 ^",
     description: `
@@ -997,64 +973,7 @@ key = :name
 %{^key => name_value} = %{name: "Alice", age: 30}
 IO.puts("name = \#{name_value}")`,
   },
-  {
-    chapter: "Ch.3: パターンマッチ",
-    title: "ガード（when）",
-    description: `
-<h2>ガード（when）</h2>
-<p>ガードはパターンマッチに条件を追加します。<code>when</code> キーワードの後に条件式を書きます。</p>
-<h3>ガードで使える式</h3>
-<ul>
-  <li>型チェック: <code>is_integer/1</code>, <code>is_list/1</code> など</li>
-  <li>比較: <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>in</code></li>
-  <li>算術: <code>+</code>, <code>-</code>, <code>*</code>, <code>div/2</code>, <code>rem/2</code>, <code>abs/1</code></li>
-  <li>論理: <code>and</code>, <code>or</code>, <code>not</code></li>
-</ul>
-<p><strong>注意</strong>: ガード内で例外が起きても MatchError にはならず、そのガードが失敗するだけです。</p>
-`,
-    defaultCode: `# case でのガード
-classify_number = fn n ->
-  case n do
-    x when x > 0  -> "正: \#{x}"
-    x when x < 0  -> "負: \#{x}"
-    0             -> "ゼロ"
-  end
-end
-IO.puts(classify_number.(42))
-IO.puts(classify_number.(-7))
-IO.puts(classify_number.(0))
-
-# 関数節でのガード
-defmodule Guard do
-  def describe(x) when is_integer(x) and x > 0, do: "正の整数: \#{x}"
-  def describe(x) when is_integer(x) and x < 0, do: "負の整数: \#{x}"
-  def describe(x) when is_integer(x),            do: "ゼロ"
-  def describe(x) when is_float(x),              do: "浮動小数: \#{x}"
-  def describe(x) when is_binary(x),             do: "文字列: \#{x}"
-  def describe(x) when is_list(x),               do: "リスト, 長さ: \#{length(x)}"
-  def describe(_),                               do: "その他"
-end
-
-IO.puts(Guard.describe(42))
-IO.puts(Guard.describe(-5))
-IO.puts(Guard.describe(0))
-IO.puts(Guard.describe(3.14))
-IO.puts(Guard.describe("hello"))
-IO.puts(Guard.describe([1, 2, 3]))
-
-# in ガード
-day_type = fn day ->
-  cond do
-    day in [:saturday, :sunday] -> "週末"
-    day in [:monday, :tuesday, :wednesday,
-            :thursday, :friday]  -> "平日"
-    true -> "不明"
-  end
-end
-IO.puts(day_type.(:saturday))
-IO.puts(day_type.(:monday))`,
-  },
-  {
+{
     chapter: "Ch.3: パターンマッチ",
     title: "case 式",
     description: `
@@ -1110,7 +1029,46 @@ IO.puts(describe_list.([:a]))
 IO.puts(describe_list.([:a, :b]))
 IO.puts(describe_list.([:a, :b, :c]))`,
   },
-  {
+{
+    chapter: "Ch.3: パターンマッチ",
+    title: "タプルのパターンマッチ",
+    description: `
+<h2>タプルのパターンマッチ</h2>
+<p>タプルは固定長なので、サイズと各要素をパターンで照合できます。<code>{:ok, value}</code> / <code>{:error, reason}</code> パターンは Elixir 全体で使われる最重要イディオムです。</p>
+`,
+    defaultCode: `# 2要素タプル
+{a, b} = {1, 2}
+IO.puts("\#{a}, \#{b}")
+
+# {:ok, value} / {:error, reason} パターン
+def_result = fn x ->
+  if x > 0, do: {:ok, x * 2}, else: {:error, "負の数: \#{x}"}
+end
+
+case def_result.(5) do
+  {:ok, v}    -> IO.puts("成功: \#{v}")
+  {:error, e} -> IO.puts("失敗: \#{e}")
+end
+
+case def_result.(-3) do
+  {:ok, v}    -> IO.puts("成功: \#{v}")
+  {:error, e} -> IO.puts("失敗: \#{e}")
+end
+
+# 3要素タプル
+{status, code, msg} = {:error, 404, "Not Found"}
+IO.puts("\#{status} \#{code}: \#{msg}")
+
+# ネストしたタプル
+{{x1, y1}, {x2, y2}} = {{0, 0}, {3, 4}}
+dist = :math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
+IO.puts("距離: \#{dist}")
+
+# 特定要素のみマッチ（残りは_で無視）
+{:ok, _, third} = {:ok, "ignored", 42}
+IO.puts("third: \#{third}")`,
+  },
+{
     chapter: "Ch.3: パターンマッチ",
     title: "リストのパターンマッチ",
     description: `
@@ -1134,32 +1092,9 @@ end
 IO.puts(describe.([]))
 IO.puts(describe.([:only]))
 IO.puts(describe.([:a, :b]))
-IO.puts(describe.([:x, :y, :z]))
-
-# 再帰でリストを処理（パターンマッチの核心）
-defmodule MyList do
-  def sum([]),      do: 0
-  def sum([h | t]), do: h + sum(t)
-
-  def max([x]),     do: x
-  def max([h | t]), do: Kernel.max(h, max(t))
-
-  def contains?([], _),    do: false
-  def contains?([h | _], h), do: true
-  def contains?([_ | t], x), do: contains?(t, x)
-
-  def take(_, 0),      do: []
-  def take([], _),     do: []
-  def take([h | t], n), do: [h | take(t, n - 1)]
-end
-
-IO.puts(MyList.sum([1, 2, 3, 4, 5]))    # 15
-IO.puts(MyList.max([3, 1, 4, 1, 5, 9])) # 9
-IO.puts(MyList.contains?([1,2,3], 2))   # true
-IO.puts(MyList.contains?([1,2,3], 5))   # false
-IO.inspect(MyList.take([1,2,3,4,5], 3)) # [1,2,3]`,
+IO.puts(describe.([:x, :y, :z]))`,
   },
-  {
+{
     chapter: "Ch.3: パターンマッチ",
     title: "マップのパターンマッチ",
     description: `
@@ -1204,7 +1139,45 @@ data = %{user: %{profile: %{score: 95, level: :gold}}}
 %{user: %{profile: %{score: score, level: level}}} = data
 IO.puts("score=\#{score}, level=\#{level}")`,
   },
-  {
+{
+    chapter: "Ch.3: パターンマッチ",
+    title: "演習：パターンマッチ",
+    description: `
+<h2>演習：パターンマッチ</h2>
+<p>学んだパターンマッチの知識を使って実装してみましょう。</p>
+`,
+    defaultCode: `# 演習1：case式によるパターンマッチで点数毎にメッセージを変える
+score = 75
+
+judge = case score do
+    100 -> "満点！"
+    s when is_integer(s) and s >= 80 -> "合格"
+    s when is_integer(s) -> "不合格"
+    _ -> "不正な入力"
+  end
+IO.puts(judge)
+
+# 演習2：リストとマップのパターンマッチでユーザー名を順番に抽出
+users = [
+  %{name: "Alice", age: 30},
+  %{name: "Bob", age: 25},
+  %{name: "Charlie", age: 35}
+]
+
+[%{name: first_name} | rests] = users
+IO.puts("先頭は#{first_name}さん")
+[%{name: second_name} | last] = rests
+IO.puts("2番目は#{second_name}さん")
+IO.inspect(last, label: "最後は")
+
+# 演習3：ピン演算子による変数指定でのパターンマッチ
+current_status = :active
+data = {:user, 101, "Elixir太郎", :active}
+
+{:user, id, name, ^current_status} = data
+IO.puts("ID: #{id}, Name: #{name}")`,
+  },
+{
     chapter: "Ch.3: パターンマッチ",
     title: "バイナリのパターンマッチ",
     description: `
@@ -1250,51 +1223,7 @@ IO.inspect(parse_command.("GET /users"))
 IO.inspect(parse_command.("POST /login"))
 IO.inspect(parse_command.("PATCH /item"))`,
   },
-  {
-    chapter: "Ch.3: パターンマッチ",
-    title: "関数節のパターンマッチ",
-    description: `
-<h2>関数節のパターンマッチ</h2>
-<p>名前付き関数でも無名関数でも、同名の関数を複数定義して引数パターンで選択できます。これを<strong>関数節（Function Clauses）</strong>と呼びます。</p>
-<h3>評価順序</h3>
-<p>上から順に照合され、最初にマッチした節が実行されます。より具体的なパターンを先に書く必要があります。</p>
-`,
-    defaultCode: `defmodule Shape do
-  # 図形の面積計算（関数節でディスパッチ）
-  def area({:circle, r}),              do: :math.pi() * r * r
-  def area({:rect, w, h}),             do: w * h
-  def area({:triangle, base, height}), do: base * height / 2
-  def area({:square, side}),           do: side * side
-
-  # 説明（ガード付き関数節）
-  def describe(n) when n > 100,  do: "大きな数: \#{n}"
-  def describe(n) when n > 10,   do: "中くらいの数: \#{n}"
-  def describe(n) when n > 0,    do: "小さな正の数: \#{n}"
-  def describe(0),                do: "ゼロ"
-  def describe(n),                do: "負の数: \#{n}"
-end
-
-IO.puts(Shape.area({:circle, 5}))
-IO.puts(Shape.area({:rect, 4, 3}))
-IO.puts(Shape.area({:triangle, 6, 4}))
-IO.puts(Shape.area({:square, 5}))
-
-IO.puts(Shape.describe(200))
-IO.puts(Shape.describe(50))
-IO.puts(Shape.describe(3))
-IO.puts(Shape.describe(0))
-IO.puts(Shape.describe(-5))
-
-# 無名関数の複数節
-fizzbuzz = fn
-  n when rem(n, 15) == 0 -> "FizzBuzz"
-  n when rem(n, 3) == 0  -> "Fizz"
-  n when rem(n, 5) == 0  -> "Buzz"
-  n                       -> Integer.to_string(n)
-end
-IO.inspect(Enum.map(1..15, fizzbuzz))`,
-  },
-  {
+{
     chapter: "Ch.3: パターンマッチ",
     title: "with 式（パターン連鎖）",
     description: `
@@ -1303,92 +1232,64 @@ IO.inspect(Enum.map(1..15, fizzbuzz))`,
 <h3>典型的な使い方</h3>
 <p><code>{:ok, value} &lt;- some_operation()</code> のように <code>&lt;-</code> でパターンマッチします。</p>
 `,
-    defaultCode: `# with の基本構造
-defmodule Registration do
-  def process(params) do
-    with {:ok, name}  <- validate_name(params[:name]),
-         {:ok, age}   <- validate_age(params[:age]),
-         {:ok, email} <- validate_email(params[:email]) do
-      # すべて成功した場合
-      {:ok, %{name: name, age: age, email: email}}
-    else
-      # どれかが失敗した場合
-      {:error, field, msg} -> {:error, "#{field}: #{msg}"}
-    end
-  end
+    defaultCode: `# 入力データ
+params = %{user_id: 1, token: "valid_token", permission: "admin"}
 
-  defp validate_name(nil),  do: {:error, :name, "必須です"}
-  defp validate_name(""),   do: {:error, :name, "空にできません"}
-  defp validate_name(name), do: {:ok, String.trim(name)}
-
-  defp validate_age(age) when is_integer(age) and age >= 0, do: {:ok, age}
-  defp validate_age(_),  do: {:error, :age, "0以上の整数が必要です"}
-
-  defp validate_email(email) when is_binary(email) do
-    if String.contains?(email, "@"),
-      do:   {:ok, email},
-      else: {:error, :email, "@が必要です"}
-  end
-  defp validate_email(_), do: {:error, :email, "文字列が必要です"}
+# 認証・認可・データ取得の擬似的なパイプライン
+result = with {:ok, user_id} <- Map.fetch(params, :user_id),
+              true          <- params[:token] == "valid_token",
+              "admin"       <- params[:permission] do
+  # すべてのパターンにマッチした場合のみ実行される
+  "Access granted for user #{user_id}."
+else
+  # 途中でマッチしなかった場合の処理
+  :error -> "Error: user_id is missing."
+  false  -> "Error: Invalid token."
+  other  -> "Error: Invalid permission: #{other}"
 end
 
-IO.inspect(Registration.process(%{name: "Alice", age: 25, email: "a@example.com"}))
-IO.inspect(Registration.process(%{name: nil,     age: 25, email: "a@example.com"}))
-IO.inspect(Registration.process(%{name: "Bob",   age: -1, email: "b@example.com"}))
-IO.inspect(Registration.process(%{name: "Carol", age: 30, email: "invalid"}))`,
+IO.puts(result)`,
   },
-  {
+{
     chapter: "Ch.3: パターンマッチ",
-    title: "演習：パターンマッチ",
+    title: "ガード（when）",
     description: `
-<h2>演習：パターンマッチ</h2>
-<p>学んだパターンマッチの知識を使って実装してみましょう。</p>
-<h3>課題</h3>
-<ol>
-  <li><code>head_tail/1</code> — リストを <code>{head, tail}</code> に分解する（空リストは <code>:empty</code>）</li>
-  <li><code>classify/1</code> — 値を分類する（整数/文字列/アトム/リスト/その他）</li>
-  <li><code>parse_response/1</code> — HTTP レスポンスタプルを解析する</li>
-</ol>
+<h2>ガード（when）</h2>
+<p>ガードはパターンマッチに条件を追加します。<code>when</code> キーワードの後に条件式を書きます。</p>
+<h3>ガードで使える式</h3>
+<ul>
+  <li>型チェック: <code>is_integer/1</code>, <code>is_list/1</code> など</li>
+  <li>比較: <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>in</code></li>
+  <li>算術: <code>+</code>, <code>-</code>, <code>*</code>, <code>div/2</code>, <code>rem/2</code>, <code>abs/1</code></li>
+  <li>論理: <code>and</code>, <code>or</code>, <code>not</code></li>
+</ul>
+<p><strong>注意</strong>: ガード内で例外が起きても MatchError にはならず、そのガードが失敗するだけです。</p>
 `,
-    defaultCode: `defmodule Exercise do
-  # 課題1: リストを {head, tail} に分解
-  def head_tail([]),      do: :empty
-  def head_tail([h | t]), do: {h, t}
-
-  # 課題2: 値を分類
-  def classify(x) when is_integer(x) and x > 0, do: "正の整数"
-  def classify(x) when is_integer(x) and x < 0, do: "負の整数"
-  def classify(0),                               do: "ゼロ"
-  def classify(x) when is_binary(x),             do: "文字列 (\#{String.length(x)}文字)"
-  def classify(x) when is_atom(x),               do: "アトム :\#{x}"
-  def classify(x) when is_list(x),               do: "リスト (\#{length(x)}要素)"
-  def classify(_),                               do: "その他"
-
-  # 課題3: HTTP レスポンス解析
-  def parse_response({200, body}),            do: {:ok, body}
-  def parse_response({201, body}),            do: {:created, body}
-  def parse_response({404, _}),               do: {:not_found, nil}
-  def parse_response({500, msg}),             do: {:server_error, msg}
-  def parse_response({code, _}) when code >= 400, do: {:client_error, code}
-  def parse_response({code, body}),           do: {:unknown, code, body}
+    defaultCode: `# case でのガード
+classify_number = fn n ->
+  case n do
+    x when x > 0  -> "正: \#{x}"
+    x when x < 0  -> "負: \#{x}"
+    0             -> "ゼロ"
+  end
 end
+IO.puts(classify_number.(42))
+IO.puts(classify_number.(-7))
+IO.puts(classify_number.(0))
 
-# テスト
-IO.inspect(Exercise.head_tail([]))
-IO.inspect(Exercise.head_tail([1, 2, 3]))
-
-IO.puts(Exercise.classify(42))
-IO.puts(Exercise.classify(-7))
-IO.puts(Exercise.classify(0))
-IO.puts(Exercise.classify("hello"))
-IO.puts(Exercise.classify(:ok))
-IO.puts(Exercise.classify([1,2,3]))
-
-IO.inspect(Exercise.parse_response({200, "OK"}))
-IO.inspect(Exercise.parse_response({404, "Not Found"}))
-IO.inspect(Exercise.parse_response({500, "Internal Error"}))`,
+# in ガード
+day_type = fn day ->
+  cond do
+    day in [:saturday, :sunday] -> "週末"
+    day in [:monday, :tuesday, :wednesday,
+            :thursday, :friday]  -> "平日"
+    true -> "不明"
+  end
+end
+IO.puts(day_type.(:saturday))
+IO.puts(day_type.(:monday))`,
   },
-  {
+{
     chapter: "Ch.3: パターンマッチ",
     title: "おめでとうございます！（Ch.3）",
     description: `
@@ -1434,102 +1335,9 @@ with {:ok, users} <- (case data do
   {with_score, without_score} = Enum.split_with(users, &(&1.score != nil))
   IO.inspect(Enum.map(with_score, & &1.name),    label: "スコアあり")
   IO.inspect(Enum.map(without_score, & &1.name), label: "スコアなし")
-
-  # 平均スコア
-  avg = Enum.sum(Enum.map(with_score, & &1.score)) / length(with_score)
-  IO.puts("平均スコア: \#{Float.round(avg, 1)}")
 end`,
   },
-  {
-    chapter: "Ch.3: パターンマッチ",
-    title: "タプルのパターンマッチ",
-    description: `
-<h2>タプルのパターンマッチ</h2>
-<p>タプルは固定長なので、サイズと各要素をパターンで照合できます。<code>{:ok, value}</code> / <code>{:error, reason}</code> パターンは Elixir 全体で使われる最重要イディオムです。</p>
-`,
-    defaultCode: `# 2要素タプル
-{a, b} = {1, 2}
-IO.puts("\#{a}, \#{b}")
-
-# {:ok, value} / {:error, reason} パターン
-def_result = fn x ->
-  if x > 0, do: {:ok, x * 2}, else: {:error, "負の数: \#{x}"}
-end
-
-case def_result.(5) do
-  {:ok, v}    -> IO.puts("成功: \#{v}")
-  {:error, e} -> IO.puts("失敗: \#{e}")
-end
-
-case def_result.(-3) do
-  {:ok, v}    -> IO.puts("成功: \#{v}")
-  {:error, e} -> IO.puts("失敗: \#{e}")
-end
-
-# 3要素タプル
-{status, code, msg} = {:error, 404, "Not Found"}
-IO.puts("\#{status} \#{code}: \#{msg}")
-
-# ネストしたタプル
-{{x1, y1}, {x2, y2}} = {{0, 0}, {3, 4}}
-dist = :math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
-IO.puts("距離: \#{dist}")
-
-# 特定要素のみマッチ（残りは_で無視）
-{:ok, _, third} = {:ok, "ignored", 42}
-IO.puts("third: \#{third}")`,
-  },
-  {
-    chapter: "Ch.3: パターンマッチ",
-    title: "構造体のパターンマッチ",
-    description: `
-<h2>構造体のパターンマッチ</h2>
-<p>構造体もマップと同じ記法でパターンマッチできます。型チェックも同時に行われるため、マップよりも安全です。</p>
-<pre><code>%StructName{field: value} = struct</code></pre>
-`,
-    defaultCode: `defmodule User do
-  defstruct [:name, :role, age: 0]
-end
-
-defmodule Post do
-  defstruct [:title, :author, :published]
-end
-
-alice = %User{name: "Alice", role: :admin, age: 30}
-bob   = %User{name: "Bob",   role: :user,  age: 25}
-
-# 構造体のパターンマッチ
-%User{name: name, role: :admin} = alice
-IO.puts("管理者: \#{name}")
-
-# case での構造体マッチ
-describe = fn
-  %User{role: :admin, name: n} -> "\#{n} は管理者"
-  %User{age: a, name: n} when a >= 18 -> "\#{n} は成人ユーザー"
-  %User{name: n} -> "\#{n} は未成年ユーザー"
-  %Post{title: t} -> "投稿: \#{t}"
-end
-
-IO.puts(describe.(alice))
-IO.puts(describe.(bob))
-IO.puts(describe.(%Post{title: "Hello"}))
-
-# 構造体は %{} でもマッチ可（型チェックなし）
-%{name: n} = alice
-IO.puts(n)
-
-# is_struct でガード
-check = fn s ->
-  cond do
-    is_struct(s, User) -> "User 型"
-    is_struct(s, Post) -> "Post 型"
-    true               -> "その他"
-  end
-end
-IO.puts(check.(alice))
-IO.puts(check.(%Post{title: "X"}))`,
-  },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "関数",
     description: `
@@ -1543,7 +1351,7 @@ IO.puts(check.(%Post{title: "X"}))`,
 <p><code>&amp;Module.func/arity</code> で既存の名前付き関数を無名関数に変換。<br>
 <code>&amp;(&amp;1 * 2)</code> で簡略記法の無名関数（<code>&amp;1</code> が第1引数）。</p>
 <h3>パイプ演算子 |&gt;</h3>
-<p>左の式の結果を右の関数の第1引数として渡します。データ変換チェーンを読みやすく書けます。</p>
+<p>左の式の結果を右の関数の第1引数として渡します。データ変換チェーンを読みやすく書けます。</p>＃
 <h3>クロージャ</h3>
 <p>無名関数は外部スコープの変数をキャプチャします。</p>
 `,
@@ -1577,7 +1385,6 @@ result =
   "  Hello, World!  "
   |> String.trim()
   |> String.downcase()
-  |> String.replace(",", "")
   |> String.split(" ")
   |> Enum.map(&String.capitalize/1)
   |> Enum.join(" ")
@@ -1599,7 +1406,7 @@ IO.puts(add10.(20))   # 30
 apply_twice = fn f, x -> f.(f.(x)) end
 IO.puts(apply_twice.(double, 3))    # 12`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "モジュール",
     description: `
@@ -1663,17 +1470,17 @@ IO.puts(Greeter.greet(:es, "Carlos"))
 IO.puts(Greeter.greet(:fr, "Marie"))
 
 # デフォルト引数
-defmodule Padder do
-  def pad(str, width \\\\ 10, char \\\\ " ") do
-    String.pad_leading(str, width, char)
+defmodule Rectangle do
+  def area(width \\\\ 10, height \\\\ 10) do
+    width * height
   end
 end
 
-IO.puts(Padder.pad("hello"))
-IO.puts(Padder.pad("hello", 15))
-IO.puts(Padder.pad("42", 8, "0"))`,
+IO.puts(Rectangle.area())
+IO.puts(Rectangle.area(20))
+IO.puts(Rectangle.area(30, 15))`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "再帰",
     description: `
@@ -1736,7 +1543,77 @@ IO.inspect(Recursive.my_map([1, 2, 3], &(&1 * 2)))
 IO.inspect(Recursive.flatten([1, [2, 3], [4, [5, 6]]]))
 IO.inspect(Recursive.zip([:a, :b, :c], [1, 2, 3]))`,
   },
-  {
+{
+    chapter: "Ch.4: 関数とモジュール",
+    title: "同名関数のパターンマッチ",
+    description: `
+<h2>同名関数のパターンマッチ</h2>
+<p>同名関数を複数定義し、引数パターンとガードで節を切り替えます。</p>
+<h3>評価順序</h3>
+<p>上から順に照合され、最初にマッチした節が実行されます。具体的なパターンを先に書きます。</p>
+`,
+    defaultCode: `defmodule Shape do
+  # 図形の面積計算（関数節でディスパッチ）
+  def area({:circle, r}),              do: :math.pi() * r * r
+  def area({:rect, w, h}),             do: w * h
+  def area({:triangle, base, height}), do: base * height / 2
+  def area({:square, side}),           do: side * side
+
+  # 説明（ガード付き関数節）
+  def describe(n) when n > 100, do: "大きな数: \#{n}"
+  def describe(n) when n > 10,  do: "中くらいの数: \#{n}"
+  def describe(n) when n > 0,   do: "小さな正の数: \#{n}"
+  def describe(0),              do: "ゼロ"
+  def describe(n),              do: "負の数: \#{n}"
+end
+
+IO.puts(Shape.area({:circle, 5}))
+IO.puts(Shape.area({:rect, 4, 3}))
+IO.puts(Shape.area({:triangle, 6, 4}))
+IO.puts(Shape.area({:square, 5}))
+
+IO.puts(Shape.describe(200))
+IO.puts(Shape.describe(50))
+IO.puts(Shape.describe(3))
+IO.puts(Shape.describe(0))
+IO.puts(Shape.describe(-5))`,
+  },
+{
+    chapter: "Ch.4: 関数とモジュール",
+    title: "再帰関数のパターンマッチ",
+    description: `
+<h2>再帰関数のパターンマッチ</h2>
+<p>関数の引数パターンで処理を分岐しながら再帰すると、リスト処理をシンプルに書けます。</p>
+<ul>
+  <li><code>[]</code> と <code>[h | t]</code> の2節で基本再帰を表現</li>
+  <li>ベースケースを先に書く</li>
+  <li>探索・抽出・先頭n件取得などを同じ形で実装できる</li>
+</ul>
+`,
+    defaultCode: `# 再帰でリストを処理（パターンマッチの核心）
+defmodule MyList do
+  def sum([]),      do: 0
+  def sum([h | t]), do: h + sum(t)
+
+  def max([x]),     do: x
+  def max([h | t]), do: Kernel.max(h, max(t))
+
+  def contains?([], _),      do: false
+  def contains?([h | _], h), do: true
+  def contains?([_ | t], x), do: contains?(t, x)
+
+  def take(_, 0),       do: []
+  def take([], _),      do: []
+  def take([h | t], n), do: [h | take(t, n - 1)]
+end
+
+IO.puts(MyList.sum([1, 2, 3, 4, 5]))    # 15
+IO.puts(MyList.max([3, 1, 4, 1, 5, 9])) # 9
+IO.puts(MyList.contains?([1,2,3], 2))   # true
+IO.puts(MyList.contains?([1,2,3], 5))   # false
+IO.inspect(MyList.take([1,2,3,4,5], 3)) # [1,2,3]`,
+  },
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "無名関数",
     description: `
@@ -1786,7 +1663,7 @@ IO.puts(triple.(7))   # 21
 apply = fn f, x -> f.(x) end
 IO.puts(apply.(double, 5))   # 10`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "キャプチャ演算子 &",
     description: `
@@ -1833,7 +1710,7 @@ end
 IO.inspect(Enum.map(1..5, &Math.double/1))
 IO.inspect(Enum.reduce(1..5, 0, &Math.add/2))`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "パイプ演算子 |>",
     description: `
@@ -1864,7 +1741,6 @@ IO.puts(result2)
 "  Hello, World!  "
 |> String.trim()
 |> String.downcase()
-|> String.replace(",", "")
 |> String.split()
 |> Enum.map(&String.capitalize/1)
 |> Enum.join(" ")
@@ -1884,54 +1760,31 @@ IO.puts(result2)
 |> Enum.sum()
 |> IO.puts()`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
-    title: "デフォルト引数とプライベート関数",
+    title: "プライベート関数",
     description: `
-<h2>デフォルト引数とプライベート関数</h2>
-<h3>デフォルト引数</h3>
-<p><code>def func(arg \\\\ default)</code> でデフォルト値を設定します。<br>
-複数節がある場合は、ヘッダー宣言（本体なし）でデフォルトを指定します。</p>
-<h3>プライベート関数</h3>
+<h2>プライベート関数</h2>
 <p><code>defp</code> で定義した関数はモジュール外から呼び出せません。内部実装を隠蔽します。</p>
 `,
-    defaultCode: `defmodule Server do
-  # デフォルト引数
-  def connect(host, port \\\\ 80, timeout \\\\ 5000) do
-    IO.puts("接続: \#{host}:\#{port} (timeout=\#{timeout}ms)")
+    defaultCode: `defmodule PostManager do
+  def display_posts(posts) do
+    render(posts)
   end
 
-  # 複数節でデフォルト引数（ヘッダー宣言が必要）
-  def greet(name, lang \\\\ :ja)
-  def greet(name, :ja), do: "こんにちは、\#{name}！"
-  def greet(name, :en), do: "Hello, \#{name}!"
-  def greet(name, _),   do: "Hi, \#{name}!"
-
-  # プライベート関数（外部から呼び出し不可）
-  def safe_divide(a, b) do
-    case validate_divisor(b) do
-      :ok    -> {:ok, a / b}
-      :error -> {:error, "ゼロ除算"}
-    end
-  end
-
-  defp validate_divisor(0), do: :error
-  defp validate_divisor(_), do: :ok
+  # 空リスト [] にマッチ
+  defp render([]), do: "記事がありません。"
+  
+  # 1つ以上の要素があるリストにマッチ
+  defp render(_posts), do: "記事を表示します。"
 end
 
-Server.connect("localhost")              # デフォルト: 80, 5000
-Server.connect("example.com", 443)      # timeout はデフォルト
-Server.connect("db.local", 5432, 10000) # すべて指定
+IO.inspect(PostManager.display_posts([]))
+IO.inspect(PostManager.display_posts(["記事A", "記事B", "記事C"]))
 
-IO.puts(Server.greet("Alice"))
-IO.puts(Server.greet("Bob", :en))
-
-IO.inspect(Server.safe_divide(10, 3))
-IO.inspect(Server.safe_divide(10, 0))
-
-# Server.validate_divisor(0)  # UndefinedFunctionError（プライベート）`,
+# PostManager.render(0)  # UndefinedFunctionError（プライベート）`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "モジュール属性",
     description: `
@@ -1994,7 +1847,7 @@ IO.puts(Config.valid_lang?(:fr))
 IO.puts(Config.weekday?(:mon))
 IO.puts(Config.weekend?(:sat))`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "alias / import / use / require",
     description: `
@@ -2042,7 +1895,7 @@ require Integer
 IO.puts(Integer.is_odd(3))
 IO.puts(Integer.is_even(4))`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "高階関数",
     description: `
@@ -2100,7 +1953,7 @@ IO.inspect(result)
 upcase_trim = HighOrder.compose(&String.upcase/1, &String.trim/1)
 IO.puts(upcase_trim.("  hello world  "))`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
     title: "末尾再帰とアキュムレータ",
     description: `
@@ -2145,155 +1998,7 @@ end
 IO.puts(TailRec.sum([1, 2, 3, 4, 5]))     # 15
 IO.inspect(TailRec.reverse([1, 2, 3, 4])) # [4, 3, 2, 1]
 IO.inspect(TailRec.map([1,2,3,4,5], &(&1*&1)))
-IO.inspect(TailRec.zip([:a,:b,:c], [1,2,3]))
-
-# 巨大なリストでも問題なし（末尾再帰）
-big = Enum.to_list(1..100_000)
-IO.puts(TailRec.sum(big))`,
-  },
-  {
-    chapter: "Ch.4: 関数とモジュール",
-    title: "おめでとうございます！（Ch.4）",
-    description: `
-<h2>Ch.4 完了！</h2>
-<p>関数とモジュールの章を修了しました！</p>
-<ul>
-  <li>✅ <strong>無名関数</strong> — fn/end、複数節、クロージャ</li>
-  <li>✅ <strong>キャプチャ演算子 &amp;</strong> — &amp;Mod.func/arity、&amp;(&amp;1 * 2)</li>
-  <li>✅ <strong>パイプ演算子 |&gt;</strong> — データ変換チェーン</li>
-  <li>✅ <strong>名前付き関数</strong> — def、関数節、ガード</li>
-  <li>✅ <strong>デフォルト引数</strong> — arg \\\\ default</li>
-  <li>✅ <strong>プライベート関数</strong> — defp</li>
-  <li>✅ <strong>モジュール属性</strong> — @定数、@doc</li>
-  <li>✅ <strong>alias / import / use / require</strong></li>
-  <li>✅ <strong>高階関数</strong> — Strategy パターン、関数合成</li>
-  <li>✅ <strong>末尾再帰</strong> — アキュムレータパターン</li>
-</ul>
-<p>次は <strong>Ch.5: 制御フロー</strong> へ進みましょう！</p>
-`,
-    defaultCode: `# Ch.4 総合演習：パイプラインで文章を処理する
-
-defmodule TextProcessor do
-  @stop_words ~w(the a an is are was were)
-
-  def process(text, opts \\\\ []) do
-    max_words = Keyword.get(opts, :max_words, 10)
-    upcase    = Keyword.get(opts, :upcase, false)
-
-    text
-    |> normalize()
-    |> tokenize()
-    |> remove_stop_words()
-    |> Enum.take(max_words)
-    |> maybe_upcase(upcase)
-    |> Enum.join(" ")
-  end
-
-  defp normalize(text),   do: text |> String.trim() |> String.downcase()
-  defp tokenize(text),    do: String.split(text, ~r/\s+/)
-  defp remove_stop_words(words), do: Enum.reject(words, &(&1 in @stop_words))
-  defp maybe_upcase(words, true),  do: Enum.map(words, &String.upcase/1)
-  defp maybe_upcase(words, false), do: words
-end
-
-text = "  The quick brown fox is jumping over a lazy dog  "
-IO.puts(TextProcessor.process(text))
-IO.puts(TextProcessor.process(text, max_words: 5))
-IO.puts(TextProcessor.process(text, upcase: true))`,
-  },
-  {
-    chapter: "Ch.4: 関数とモジュール",
-    title: "Enum.reduce で自作コレクション関数",
-    description: `
-<h2>Enum.reduce で自作コレクション関数</h2>
-<p><code>Enum.reduce/3</code> はコレクションの基本操作です。<code>map</code>・<code>filter</code>・<code>count</code> など、ほぼすべての Enum 関数を reduce で実装できます。</p>
-`,
-    defaultCode: `defmodule MyEnum do
-  # map を reduce で実装
-  def map(list, f) do
-    list
-    |> Enum.reduce([], fn x, acc -> [f.(x) | acc] end)
-    |> Enum.reverse()
-  end
-
-  # filter を reduce で実装
-  def filter(list, pred) do
-    list
-    |> Enum.reduce([], fn x, acc ->
-      if pred.(x), do: [x | acc], else: acc
-    end)
-    |> Enum.reverse()
-  end
-
-  # count_by
-  def count_by(list, pred) do
-    Enum.reduce(list, 0, fn x, n -> if pred.(x), do: n+1, else: n end)
-  end
-
-  # group_by（reduce による実装）
-  def group_by(list, key_fn) do
-    Enum.reduce(list, %{}, fn x, acc ->
-      k = key_fn.(x)
-      Map.update(acc, k, [x], &(&1 ++ [x]))
-    end)
-  end
-end
-
-IO.inspect(MyEnum.map([1,2,3,4,5], &(&1 * 2)))
-IO.inspect(MyEnum.filter([1,2,3,4,5], &(rem(&1,2)==0)))
-IO.puts(MyEnum.count_by([1,2,3,4,5,6], &(rem(&1,2)==0)))
-IO.inspect(MyEnum.group_by(["apple","ant","bee","cat","bear"], &String.first/1))`,
-  },
-  {
-    chapter: "Ch.4: 関数とモジュール",
-    title: "モジュールのネストと __MODULE__",
-    description: `
-<h2>モジュールのネストと __MODULE__</h2>
-<p>モジュールはネストして定義できます。<code>__MODULE__</code> は現在のモジュール名を返すマクロで、リファクタリング時の名前変更漏れを防ぎます。</p>
-`,
-    defaultCode: `defmodule MyApp do
-  @app_name "MyApp"
-
-  def name, do: @app_name
-
-  defmodule User do
-    defstruct [:id, :name, :email]
-
-    def new(id, name, email) do
-      %__MODULE__{id: id, name: name, email: email}
-    end
-
-    def greet(%__MODULE__{name: name}), do: "Hello, \#{name}!"
-  end
-
-  defmodule Repo do
-    @store_name :"#{__MODULE__}.Store"
-
-    def start do
-      Agent.start_link(fn -> [] end, name: @store_name)
-    end
-
-    def insert(record) do
-      Agent.update(@store_name, &[record | &1])
-    end
-
-    def all do
-      Agent.get(@store_name, & &1)
-    end
-  end
-end
-
-# 使用
-IO.puts(MyApp.name())
-
-user = MyApp.User.new(1, "Alice", "alice@example.com")
-IO.inspect(user)
-IO.puts(MyApp.User.greet(user))
-
-MyApp.Repo.start()
-MyApp.Repo.insert(%{id: 1, name: "Alice"})
-MyApp.Repo.insert(%{id: 2, name: "Bob"})
-IO.inspect(MyApp.Repo.all())`,
+IO.inspect(TailRec.zip([:a,:b,:c], [1,2,3]))`,
   },
   {
     chapter: "Ch.4: 関数とモジュール",
@@ -2343,54 +2048,57 @@ pipeline = Compose.pipe([
 ])
 IO.puts(pipeline.("  hello  "))`,
   },
-  {
+{
     chapter: "Ch.4: 関数とモジュール",
-    title: "再帰パターン集",
+    title: "おめでとうございます！（Ch.4）",
     description: `
-<h2>再帰パターン集</h2>
-<p>Elixir でよく使う再帰パターンをまとめます。実際のコードでは <code>Enum</code> を使うことが多いですが、再帰の理解は重要です。</p>
+<h2>Ch.4 完了！</h2>
+<p>関数とモジュールの章を修了しました！</p>
+<ul>
+  <li>✅ <strong>無名関数</strong> — fn/end、複数節、クロージャ</li>
+  <li>✅ <strong>キャプチャ演算子 &amp;</strong> — &amp;Mod.func/arity、&amp;(&amp;1 * 2)</li>
+  <li>✅ <strong>パイプ演算子 |&gt;</strong> — データ変換チェーン</li>
+  <li>✅ <strong>名前付き関数</strong> — def、関数節、ガード</li>
+  <li>✅ <strong>デフォルト引数</strong> — arg \\\\ default</li>
+  <li>✅ <strong>プライベート関数</strong> — defp</li>
+  <li>✅ <strong>モジュール属性</strong> — @定数、@doc</li>
+  <li>✅ <strong>alias / import / use / require</strong></li>
+  <li>✅ <strong>高階関数</strong> — Strategy パターン、関数合成</li>
+  <li>✅ <strong>末尾再帰</strong> — アキュムレータパターン</li>
+</ul>
+<p>次は <strong>Ch.5: 制御フロー</strong> へ進みましょう！</p>
 `,
-    defaultCode: `defmodule Patterns do
-  # 1. 蓄積パターン（末尾再帰）
-  def sum([], acc \\\\ 0)
-  def sum([h|t], acc), do: sum(t, acc + h)
+    defaultCode: `# Ch.4 総合演習：パイプラインで文章を処理する
 
-  # 2. 変換パターン（map）
-  def double([]),      do: []
-  def double([h|t]),   do: [h*2 | double(t)]
+defmodule TextProcessor do
+  @stop_words ~w(the a an is are was were)
 
-  # 3. フィルタパターン
-  def evens([]),       do: []
-  def evens([h|t]) when rem(h,2)==0, do: [h | evens(t)]
-  def evens([_|t]),   do: evens(t)
+  def process(text, opts \\\\ []) do
+    max_words = Keyword.get(opts, :max_words, 10)
+    upcase    = Keyword.get(opts, :upcase, false)
 
-  # 4. 探索パターン
-  def find([], _),     do: nil
-  def find([h|_], h),  do: h
-  def find([_|t], x),  do: find(t, x)
+    text
+    |> normalize()
+    |> tokenize()
+    |> remove_stop_words()
+    |> Enum.take(max_words)
+    |> maybe_upcase(upcase)
+    |> Enum.join(" ")
+  end
 
-  # 5. 分割パターン
-  def split_at(list, n, acc \\\\ [])
-  def split_at(rest, 0, acc),    do: {Enum.reverse(acc), rest}
-  def split_at([], _, acc),      do: {Enum.reverse(acc), []}
-  def split_at([h|t], n, acc),   do: split_at(t, n-1, [h|acc])
-
-  # 6. ツリー走査
-  def tree_sum({val, left, right}), do: val + tree_sum(left) + tree_sum(right)
-  def tree_sum(nil), do: 0
+  defp normalize(text),   do: text |> String.trim() |> String.downcase()
+  defp tokenize(text),    do: String.split(text, ~r/\s+/)
+  defp remove_stop_words(words), do: Enum.reject(words, &(&1 in @stop_words))
+  defp maybe_upcase(words, true),  do: Enum.map(words, &String.upcase/1)
+  defp maybe_upcase(words, false), do: words
 end
 
-IO.puts(Patterns.sum([1,2,3,4,5]))
-IO.inspect(Patterns.double([1,2,3,4,5]))
-IO.inspect(Patterns.evens([1,2,3,4,5,6]))
-IO.inspect(Patterns.find([1,2,3,4], 3))
-IO.inspect(Patterns.split_at([1,2,3,4,5], 3))
-
-# ツリー: 1 + (2 + 4 + 5) + 3 = 15
-tree = {1, {2, {4,nil,nil}, {5,nil,nil}}, {3,nil,nil}}
-IO.puts(Patterns.tree_sum(tree))`,
+text = "  The quick brown fox is jumping over a lazy dog  "
+IO.puts(TextProcessor.process(text))
+IO.puts(TextProcessor.process(text, max_words: 5))
+IO.puts(TextProcessor.process(text, upcase: true))`,
   },
-  {
+{
     chapter: "Ch.5: 制御フロー",
     title: "制御フロー",
     description: `
@@ -2461,7 +2169,7 @@ IO.inspect(parse_and_double.("21"))
 IO.inspect(parse_and_double.("abc"))
 IO.inspect(parse_and_double.("-5"))`,
   },
-  {
+{
     chapter: "Ch.5: 制御フロー",
     title: "with とエラー処理",
     description: `
@@ -2534,7 +2242,7 @@ after
   IO.puts("（クリーンアップ処理）")
 end`,
   },
-  {
+{
     chapter: "Ch.5: 制御フロー",
     title: "if / unless / cond",
     description: `
@@ -2581,7 +2289,7 @@ grade = cond do
 end
 IO.puts("成績: \#{grade}")`,
   },
-  {
+{
     chapter: "Ch.5: 制御フロー",
     title: "try / rescue / throw / exit",
     description: `
@@ -2645,7 +2353,232 @@ end do
 end
 IO.inspect(result)`,
   },
-  {
+{
+    chapter: "Ch.5: 制御フロー",
+    title: "for の reduce モード",
+    description: `
+<h2>for の reduce モード</h2>
+<p>Elixir 1.12 以降、<code>for</code> に <code>reduce:</code> オプションを付けると、内包表記でアキュムレータを使えます。<code>Enum.reduce</code> と <code>for</code> の合体版です。</p>
+`,
+    defaultCode: `# for reduce: で累積
+sum = for x <- 1..10, reduce: 0 do
+  acc -> acc + x
+end
+IO.puts("sum = \#{sum}")
+
+# フィルタ付きの reduce
+even_sum = for x <- 1..10, rem(x, 2) == 0, reduce: 0 do
+  acc -> acc + x
+end
+IO.puts("偶数の和 = \#{even_sum}")
+
+# マップを構築する
+freq = for word <- ~w(apple banana apple cherry banana apple), reduce: %{} do
+  acc -> Map.update(acc, word, 1, &(&1 + 1))
+end
+IO.inspect(freq)
+
+# 最大値を探す
+max_val = for x <- [3,1,4,1,5,9,2,6], reduce: :neg_inf do
+  acc -> if x > acc, do: x, else: acc
+end
+IO.puts("max = \#{max_val}")`,
+  },
+{
+    chapter: "Ch.5: 制御フロー",
+    title: "Kernel の特殊関数",
+    description: `
+<h2>Kernel の特殊関数</h2>
+<p><code>Kernel</code> モジュールの関数は自動的にインポートされます。制御フローに関係する便利関数を紹介します。</p>
+<ul>
+  <li><code>if/2</code>, <code>unless/2</code>, <code>cond/1</code> — マクロとして実装</li>
+  <li><code>then/2</code>, <code>tap/2</code> — パイプライン補助</li>
+  <li><code>elem/2</code>, <code>put_elem/3</code> — タプル操作</li>
+  <li><code>apply/2,3</code> — 動的な関数呼び出し</li>
+</ul>
+`,
+    defaultCode: `# apply（動的な関数呼び出し）
+module = String
+func   = :upcase
+args   = ["hello"]
+
+result = apply(module, func, args)
+IO.puts(result)
+
+# 関数を動的に決定
+operations = [
+  {Enum, :sum, [[1,2,3,4,5]]},
+  {Enum, :max, [[3,1,4,1,5]]},
+  {String, :length, ["hello world"]},
+]
+
+Enum.each(operations, fn {mod, fun, arg_list} ->
+  result = apply(mod, fun, arg_list)
+  IO.puts("\#{mod}.\#{fun}: \#{inspect(result)}")
+end)
+
+# max / min（Kernel）
+IO.puts(max(3, 7))
+IO.puts(min(3, 7))
+
+# abs, round, floor, ceil（Kernel）
+IO.puts(abs(-42))
+IO.puts(round(3.7))
+IO.puts(floor(3.7))
+IO.puts(ceil(3.2))
+
+# div, rem（Kernel）
+IO.puts(div(17, 5))
+IO.puts(rem(17, 5))`,
+  },
+{
+    chapter: "Ch.5: 制御フロー",
+    title: "パターンマッチとフロー制御の組み合わせ",
+    description: `
+<h2>パターンマッチとフロー制御の組み合わせ</h2>
+<p>Elixir では <code>case</code>・<code>cond</code>・<code>with</code>・関数節を組み合わせることで、複雑な制御フローを宣言的に書けます。</p>
+`,
+    defaultCode: `# 複合パターン：バリデーション + 変換 + 分岐
+defmodule RequestHandler do
+  def handle(%{method: method, path: path, body: body}) do
+    with :ok           <- validate_method(method),
+         {:ok, route}  <- match_route(method, path),
+         {:ok, params} <- parse_body(body) do
+      execute(route, params)
+    else
+      {:error, :invalid_method} -> {405, "Method Not Allowed"}
+      {:error, :not_found}      -> {404, "Not Found"}
+      {:error, :bad_body, msg}  -> {400, "Bad Request: \#{msg}"}
+    end
+  end
+
+  defp validate_method(m) when m in [:get, :post, :put, :delete], do: :ok
+  defp validate_method(_), do: {:error, :invalid_method}
+
+  defp match_route(:get,  "/users"),     do: {:ok, :list_users}
+  defp match_route(:post, "/users"),     do: {:ok, :create_user}
+  defp match_route(:get,  "/health"),    do: {:ok, :health_check}
+  defp match_route(_, _),               do: {:error, :not_found}
+
+  defp parse_body(nil), do: {:ok, %{}}
+  defp parse_body(b) when is_map(b), do: {:ok, b}
+  defp parse_body(_), do: {:error, :bad_body, "must be a map"}
+
+  defp execute(:list_users, _),   do: {200, "users: [Alice, Bob]"}
+  defp execute(:create_user, p),  do: {201, "created: \#{inspect(p)}"}
+  defp execute(:health_check, _), do: {200, "OK"}
+end
+
+IO.inspect(RequestHandler.handle(%{method: :get,  path: "/users",  body: nil}))
+IO.inspect(RequestHandler.handle(%{method: :post, path: "/users",  body: %{name: "Carol"}}))
+IO.inspect(RequestHandler.handle(%{method: :get,  path: "/404",    body: nil}))
+IO.inspect(RequestHandler.handle(%{method: :patch, path: "/users", body: nil}))`,
+  },
+{
+    chapter: "Ch.5: 制御フロー",
+    title: "例外処理 — try/rescue/catch",
+    description: `
+<h2>例外処理 — try/rescue/catch</h2>
+<p>Elixir では <code>try/rescue</code> で例外をキャッチします。ただし Elixir のイディオムでは <code>{:ok, _}</code>/<code>{:error, _}</code> タプルによるエラー伝搬が推奨されます。</p>
+<ul>
+  <li><code>rescue</code> — 例外（RuntimeError など）をキャッチ</li>
+  <li><code>catch</code> — <code>throw/1</code> の値やErlangエラーをキャッチ</li>
+  <li><code>after</code> — 成功・失敗にかかわらず実行（finally に相当）</li>
+  <li><code>raise/1</code> — 例外を発生させる</li>
+</ul>
+`,
+    defaultCode: `# rescue で例外をキャッチ
+result = try do
+  String.to_integer("abc")
+rescue
+  ArgumentError -> {:error, "変換失敗"}
+end
+IO.inspect(result)
+
+# 複数の例外パターン
+def safe_divide(a, b) do
+  try do
+    {:ok, div(a, b)}
+  rescue
+    ArithmeticError -> {:error, "ゼロ除算"}
+  end
+end
+IO.inspect(safe_divide(10, 2))
+IO.inspect(safe_divide(10, 0))
+
+# catch と throw（早期脱出パターン）
+result2 = try do
+  Enum.each(1..100, fn n ->
+    if n * n > 50, do: throw({:found, n})
+  end)
+  :not_found
+catch
+  {:found, n} -> {:found, n}
+end
+IO.inspect(result2)
+
+# after（クリーンアップ保証）
+try do
+  raise "意図的なエラー"
+rescue
+  e -> IO.puts("rescued: \#{e.message}")
+after
+  IO.puts("after は必ず実行される")
+end`,
+  },
+{
+    chapter: "Ch.5: 制御フロー",
+    title: "演習：制御フロー",
+    description: `
+<h2>演習：制御フロー</h2>
+<p>これまで学んだ制御フローを使って実装してみましょう。</p>
+`,
+    defaultCode: `defmodule Exercise do
+  # BMI 分類
+  def classify_bmi(bmi) do
+    cond do
+      bmi < 18.5 -> "低体重"
+      bmi < 25.0 -> "普通体重"
+      bmi < 30.0 -> "過体重"
+      true       -> "肥満"
+    end
+  end
+
+  # 安全な整数変換（with を使用）
+  def safe_parse_int(str) when is_binary(str) do
+    with str = String.trim(str),
+         {n, ""} <- Integer.parse(str) do
+      {:ok, n}
+    else
+      _ -> {:error, "'\#{str}' は整数に変換できません"}
+    end
+  end
+  def safe_parse_int(_), do: {:error, "文字列を渡してください"}
+
+  # FizzBuzz（パターンマッチで実装）
+  def fizzbuzz(n) do
+    case {rem(n, 3), rem(n, 5)} do
+      {0, 0} -> "FizzBuzz"
+      {0, _} -> "Fizz"
+      {_, 0} -> "Buzz"
+      _      -> Integer.to_string(n)
+    end
+  end
+end
+
+IO.puts(Exercise.classify_bmi(16.0))
+IO.puts(Exercise.classify_bmi(22.5))
+IO.puts(Exercise.classify_bmi(27.0))
+IO.puts(Exercise.classify_bmi(32.0))
+
+IO.inspect(Exercise.safe_parse_int("42"))
+IO.inspect(Exercise.safe_parse_int("  -7  "))
+IO.inspect(Exercise.safe_parse_int("abc"))
+IO.inspect(Exercise.safe_parse_int(99))
+
+IO.inspect(for n <- 1..20, do: Exercise.fizzbuzz(n))`,
+  },
+{
     chapter: "Ch.5: 制御フロー",
     title: "おめでとうございます！（Ch.5）",
     description: `
@@ -2699,237 +2632,7 @@ IO.puts(cond do
   true               -> "不明"
 end)`,
   },
-  {
-    chapter: "Ch.5: 制御フロー",
-    title: "for の reduce モード",
-    description: `
-<h2>for の reduce モード</h2>
-<p>Elixir 1.12 以降、<code>for</code> に <code>reduce:</code> オプションを付けると、内包表記でアキュムレータを使えます。<code>Enum.reduce</code> と <code>for</code> の合体版です。</p>
-`,
-    defaultCode: `# for reduce: で累積
-sum = for x <- 1..10, reduce: 0 do
-  acc -> acc + x
-end
-IO.puts("sum = \#{sum}")
-
-# フィルタ付きの reduce
-even_sum = for x <- 1..10, rem(x, 2) == 0, reduce: 0 do
-  acc -> acc + x
-end
-IO.puts("偶数の和 = \#{even_sum}")
-
-# マップを構築する
-freq = for word <- ~w(apple banana apple cherry banana apple), reduce: %{} do
-  acc -> Map.update(acc, word, 1, &(&1 + 1))
-end
-IO.inspect(freq)
-
-# 最大値を探す
-max_val = for x <- [3,1,4,1,5,9,2,6], reduce: :neg_inf do
-  acc -> if x > acc, do: x, else: acc
-end
-IO.puts("max = \#{max_val}")`,
-  },
-  {
-    chapter: "Ch.5: 制御フロー",
-    title: "Kernel の特殊関数",
-    description: `
-<h2>Kernel の特殊関数</h2>
-<p><code>Kernel</code> モジュールの関数は自動的にインポートされます。制御フローに関係する便利関数を紹介します。</p>
-<ul>
-  <li><code>if/2</code>, <code>unless/2</code>, <code>cond/1</code> — マクロとして実装</li>
-  <li><code>then/2</code>, <code>tap/2</code> — パイプライン補助</li>
-  <li><code>elem/2</code>, <code>put_elem/3</code> — タプル操作</li>
-  <li><code>apply/2,3</code> — 動的な関数呼び出し</li>
-</ul>
-`,
-    defaultCode: `# apply（動的な関数呼び出し）
-module = String
-func   = :upcase
-args   = ["hello"]
-
-result = apply(module, func, args)
-IO.puts(result)
-
-# 関数を動的に決定
-operations = [
-  {Enum, :sum, [[1,2,3,4,5]]},
-  {Enum, :max, [[3,1,4,1,5]]},
-  {String, :length, ["hello world"]},
-]
-
-Enum.each(operations, fn {mod, fun, arg_list} ->
-  result = apply(mod, fun, arg_list)
-  IO.puts("\#{mod}.\#{fun}: \#{inspect(result)}")
-end)
-
-# max / min（Kernel）
-IO.puts(max(3, 7))
-IO.puts(min(3, 7))
-
-# abs, round, floor, ceil（Kernel）
-IO.puts(abs(-42))
-IO.puts(round(3.7))
-IO.puts(floor(3.7))
-IO.puts(ceil(3.2))
-
-# div, rem（Kernel）
-IO.puts(div(17, 5))
-IO.puts(rem(17, 5))`,
-  },
-  {
-    chapter: "Ch.5: 制御フロー",
-    title: "パターンマッチとフロー制御の組み合わせ",
-    description: `
-<h2>パターンマッチとフロー制御の組み合わせ</h2>
-<p>Elixir では <code>case</code>・<code>cond</code>・<code>with</code>・関数節を組み合わせることで、複雑な制御フローを宣言的に書けます。</p>
-`,
-    defaultCode: `# 複合パターン：バリデーション + 変換 + 分岐
-defmodule RequestHandler do
-  def handle(%{method: method, path: path, body: body}) do
-    with :ok           <- validate_method(method),
-         {:ok, route}  <- match_route(method, path),
-         {:ok, params} <- parse_body(body) do
-      execute(route, params)
-    else
-      {:error, :invalid_method} -> {405, "Method Not Allowed"}
-      {:error, :not_found}      -> {404, "Not Found"}
-      {:error, :bad_body, msg}  -> {400, "Bad Request: \#{msg}"}
-    end
-  end
-
-  defp validate_method(m) when m in [:get, :post, :put, :delete], do: :ok
-  defp validate_method(_), do: {:error, :invalid_method}
-
-  defp match_route(:get,  "/users"),     do: {:ok, :list_users}
-  defp match_route(:post, "/users"),     do: {:ok, :create_user}
-  defp match_route(:get,  "/health"),    do: {:ok, :health_check}
-  defp match_route(_, _),               do: {:error, :not_found}
-
-  defp parse_body(nil), do: {:ok, %{}}
-  defp parse_body(b) when is_map(b), do: {:ok, b}
-  defp parse_body(_), do: {:error, :bad_body, "must be a map"}
-
-  defp execute(:list_users, _),   do: {200, "users: [Alice, Bob]"}
-  defp execute(:create_user, p),  do: {201, "created: \#{inspect(p)}"}
-  defp execute(:health_check, _), do: {200, "OK"}
-end
-
-IO.inspect(RequestHandler.handle(%{method: :get,  path: "/users",  body: nil}))
-IO.inspect(RequestHandler.handle(%{method: :post, path: "/users",  body: %{name: "Carol"}}))
-IO.inspect(RequestHandler.handle(%{method: :get,  path: "/404",    body: nil}))
-IO.inspect(RequestHandler.handle(%{method: :patch, path: "/users", body: nil}))`,
-  },
-  {
-    chapter: "Ch.5: 制御フロー",
-    title: "例外処理 — try/rescue/catch",
-    description: `
-<h2>例外処理 — try/rescue/catch</h2>
-<p>Elixir では <code>try/rescue</code> で例外をキャッチします。ただし Elixir のイディオムでは <code>{:ok, _}</code>/<code>{:error, _}</code> タプルによるエラー伝搬が推奨されます。</p>
-<ul>
-  <li><code>rescue</code> — 例外（RuntimeError など）をキャッチ</li>
-  <li><code>catch</code> — <code>throw/1</code> の値やErlangエラーをキャッチ</li>
-  <li><code>after</code> — 成功・失敗にかかわらず実行（finally に相当）</li>
-  <li><code>raise/1</code> — 例外を発生させる</li>
-</ul>
-`,
-    defaultCode: `# rescue で例外をキャッチ
-result = try do
-  String.to_integer("abc")
-rescue
-  ArgumentError -> {:error, "変換失敗"}
-end
-IO.inspect(result)
-
-# 複数の例外パターン
-def safe_divide(a, b) do
-  try do
-    {:ok, div(a, b)}
-  rescue
-    ArithmeticError -> {:error, "ゼロ除算"}
-  end
-end
-IO.inspect(safe_divide(10, 2))
-IO.inspect(safe_divide(10, 0))
-
-# catch と throw（早期脱出パターン）
-result2 = try do
-  Enum.each(1..100, fn n ->
-    if n * n > 50, do: throw({:found, n})
-  end)
-  :not_found
-catch
-  {:found, n} -> {:found, n}
-end
-IO.inspect(result2)
-
-# after（クリーンアップ保証）
-try do
-  raise "意図的なエラー"
-rescue
-  e -> IO.puts("rescued: \#{e.message}")
-after
-  IO.puts("after は必ず実行される")
-end`,
-  },
-  {
-    chapter: "Ch.5: 制御フロー",
-    title: "演習：制御フロー",
-    description: `
-<h2>演習：制御フロー</h2>
-<p>これまで学んだ制御フローを使って実装してみましょう。</p>
-<ol>
-  <li><code>classify_bmi/1</code> — BMI を計算して分類を返す</li>
-  <li><code>safe_parse_int/1</code> — 文字列を安全に整数に変換する</li>
-  <li><code>fizzbuzz/1</code> — FizzBuzz を返す</li>
-</ol>
-`,
-    defaultCode: `defmodule Exercise do
-  # BMI 分類
-  def classify_bmi(bmi) do
-    cond do
-      bmi < 18.5 -> "低体重"
-      bmi < 25.0 -> "普通体重"
-      bmi < 30.0 -> "過体重"
-      true       -> "肥満"
-    end
-  end
-
-  # 安全な整数変換（with を使用）
-  def safe_parse_int(str) when is_binary(str) do
-    with str = String.trim(str),
-         {n, ""} <- Integer.parse(str) do
-      {:ok, n}
-    else
-      _ -> {:error, "'\#{str}' は整数に変換できません"}
-    end
-  end
-  def safe_parse_int(_), do: {:error, "文字列を渡してください"}
-
-  # FizzBuzz（パターンマッチで実装）
-  def fizzbuzz(n) do
-    case {rem(n, 3), rem(n, 5)} do
-      {0, 0} -> "FizzBuzz"
-      {0, _} -> "Fizz"
-      {_, 0} -> "Buzz"
-      _      -> Integer.to_string(n)
-    end
-  end
-end
-
-IO.puts(Exercise.classify_bmi(16.0))
-IO.puts(Exercise.classify_bmi(22.5))
-IO.puts(Exercise.classify_bmi(27.0))
-IO.puts(Exercise.classify_bmi(32.0))
-
-IO.inspect(Exercise.safe_parse_int("42"))
-IO.inspect(Exercise.safe_parse_int("  -7  "))
-IO.inspect(Exercise.safe_parse_int("abc"))
-IO.inspect(Exercise.safe_parse_int(99))
-
-IO.inspect(for n <- 1..20, do: Exercise.fizzbuzz(n))`,
-  },
-  {
+{
     chapter: "Ch.6: コレクションと Enum",
     title: "コレクション",
     description: `
@@ -2983,7 +2686,7 @@ IO.inspect(set)
 IO.puts("member? \#{MapSet.member?(set, 2)}")
 IO.inspect(MapSet.union(set, MapSet.new([4, 5])))`,
   },
-  {
+{
     chapter: "Ch.6: コレクションと Enum",
     title: "Enum",
     description: `
@@ -3051,7 +2754,7 @@ IO.inspect(even_squares)
 pairs = for x <- 1..3, y <- 1..3, x != y, do: {x, y}
 IO.inspect(pairs)`,
   },
-  {
+{
     chapter: "Ch.6: コレクションと Enum",
     title: "Stream（遅延評価）",
     description: `
@@ -3113,7 +2816,7 @@ running_sum =
   |> Enum.to_list()
 IO.inspect(running_sum)`,
   },
-  {
+{
     chapter: "Ch.6: コレクションと Enum",
     title: "マップと構造体",
     description: `
@@ -3188,7 +2891,7 @@ IO.puts("x=\#{x}, y=\#{y}")
 IO.puts(is_struct(p, Point))
 IO.puts(is_struct(%{x: 1}, Point))`,
   },
-  {
+{
     chapter: "Ch.6: コレクションと Enum",
     title: "Enum 応用（sort / group_by / reduce）",
     description: `
@@ -3236,7 +2939,7 @@ end)
 avg = stats.sum_age / stats.count
 IO.puts("平均年齢: \#{Float.round(avg, 1)}")`,
   },
-  {
+{
     chapter: "Ch.6: コレクションと Enum",
     title: "for 内包表記",
     description: `
@@ -3281,7 +2984,7 @@ pixels = for <<r::8, g::8, b::8 <- <<255, 0, 0, 0, 255, 0, 0, 0, 255>> >>,
              do: {r, g, b}
 IO.inspect(pixels)`,
   },
-  {
+{
     chapter: "Ch.6: コレクションと Enum",
     title: "MapSet",
     description: `
@@ -3331,7 +3034,282 @@ IO.inspect(unique)
 IO.puts(Enum.sum(a))
 IO.inspect(Enum.filter(a, &(&1 > 3)))`,
   },
-  {
+{
+    chapter: "Ch.6: コレクションと Enum",
+    title: "Enum.zip / flat_map / chunk_every",
+    description: `
+<h2>Enum.zip / flat_map / chunk_every</h2>
+<p>Enum モジュールの便利な高階関数をさらに見ていきましょう。</p>
+<ul>
+  <li><code>Enum.zip/2</code> — 2つのリストをペアのリストにまとめる</li>
+  <li><code>Enum.flat_map/2</code> — map してから flatten（一段だけ）</li>
+  <li><code>Enum.chunk_every/2</code> — N 個ずつのチャンクに分割</li>
+  <li><code>Enum.zip_with/3</code> — zip しながら変換</li>
+</ul>
+`,
+    defaultCode: `# zip — 2つのリストを対応させる
+names = ["Alice", "Bob", "Carol"]
+scores = [85, 92, 78]
+pairs = Enum.zip(names, scores)
+IO.inspect(pairs)  # [{"Alice", 85}, {"Bob", 92}, {"Carol", 78}]
+
+# zip_with — zip + 変換
+totals = Enum.zip_with(names, scores, fn name, score ->
+  "\#{name}: \#{score}点"
+end)
+IO.inspect(totals)
+
+# flat_map — ネストを一段展開
+sentences = ["hello world", "foo bar baz"]
+words = Enum.flat_map(sentences, &String.split/1)
+IO.inspect(words)  # ["hello", "world", "foo", "bar", "baz"]
+
+# chunk_every — N 個ずつ分割
+IO.inspect(Enum.chunk_every(1..10, 3))
+# [[1,2,3],[4,5,6],[7,8,9],[10]]
+
+IO.inspect(Enum.chunk_every(1..10, 3, 2))
+# スライディングウィンドウ（step=2）`,
+  },
+{
+    chapter: "Ch.6: コレクションと Enum",
+    title: "List モジュール",
+    description: `
+<h2>List モジュール</h2>
+<p><code>List</code> は Enum が持たない連結リスト固有の操作を提供します。</p>
+<ul>
+  <li><code>List.first/1</code>, <code>List.last/1</code></li>
+  <li><code>List.flatten/1</code> — 深くネストしたリストを平坦化</li>
+  <li><code>List.delete/2</code>, <code>List.delete_at/2</code></li>
+  <li><code>List.insert_at/3</code>, <code>List.replace_at/3</code></li>
+  <li><code>List.zip/1</code> — n 個のリストをまとめて zip</li>
+</ul>
+`,
+    defaultCode: `list = [3, 1, 4, 1, 5, 9, 2, 6]
+
+IO.inspect(List.first(list))          # 3
+IO.inspect(List.last(list))           # 6
+IO.inspect(List.delete(list, 1))      # 最初の 1 を削除
+IO.inspect(List.delete_at(list, 2))   # インデックス 2 を削除
+
+IO.inspect(List.insert_at(list, 3, 99))    # インデックス 3 に 99 挿入
+IO.inspect(List.replace_at(list, 0, 100))  # インデックス 0 を 100 に置換
+
+# flatten — 深いネストを解消
+nested = [1, [2, [3, [4, 5]]], 6]
+IO.inspect(List.flatten(nested))       # [1, 2, 3, 4, 5, 6]
+IO.inspect(List.flatten(nested, [99])) # 末尾にリストを付加
+
+# zip（3リスト以上）
+a = [1, 2, 3]
+b = ["a", "b", "c"]
+c = [:x, :y, :z]
+IO.inspect(List.zip([a, b, c]))`,
+  },
+{
+    chapter: "Ch.6: コレクションと Enum",
+    title: "Map アクセスパターン",
+    description: `
+<h2>Map アクセスパターン</h2>
+<p>Map は Elixir で最も多用されるコレクションです。安全なアクセスパターンを覚えましょう。</p>
+<ul>
+  <li><code>Map.get/3</code> — デフォルト値付き取得</li>
+  <li><code>Map.fetch!/2</code> — 存在しなければ例外</li>
+  <li><code>Map.update/4</code> / <code>Map.update!/3</code></li>
+  <li><code>Map.merge/3</code> — 競合時の解決関数付きマージ</li>
+  <li><code>get_in/2</code>, <code>put_in/3</code>, <code>update_in/3</code> — ネストアクセス</li>
+</ul>
+`,
+    defaultCode: `user = %{name: "Alice", age: 30, address: %{city: "Tokyo", zip: "100-0001"}}
+
+# 安全なアクセス
+IO.inspect(Map.get(user, :name))               # "Alice"
+IO.inspect(Map.get(user, :email, "未設定"))    # "未設定"
+IO.inspect(Map.fetch(user, :age))              # {:ok, 30}
+IO.inspect(Map.fetch(user, :missing))          # :error
+
+# 更新
+user2 = Map.update!(user, :age, & &1 + 1)
+IO.inspect(user2.age)  # 31
+
+# マージ（競合解決）
+defaults = %{role: "user", active: true}
+overrides = %{role: "admin", name: "Bob"}
+merged = Map.merge(defaults, overrides, fn _k, _default, override -> override end)
+IO.inspect(merged)
+
+# ネストアクセス
+IO.inspect(get_in(user, [:address, :city]))         # "Tokyo"
+user3 = put_in(user, [:address, :city], "Osaka")
+IO.inspect(user3.address.city)
+user4 = update_in(user, [:address, :zip], &String.replace(&1, "-", ""))
+IO.inspect(user4.address.zip)`,
+  },
+{
+    chapter: "Ch.6: コレクションと Enum",
+    title: "Enum.any? / all? / find / count",
+    description: `
+<h2>Enum.any? / all? / find / count</h2>
+<p>述語関数（predicate）を受け取る Enum 関数群です。</p>
+<ul>
+  <li><code>Enum.any?/2</code> — いずれかの要素が条件を満たすか</li>
+  <li><code>Enum.all?/2</code> — 全要素が条件を満たすか</li>
+  <li><code>Enum.find/3</code> — 条件を満たす最初の要素</li>
+  <li><code>Enum.find_index/2</code> — 条件を満たす最初のインデックス</li>
+  <li><code>Enum.count/2</code> — 条件を満たす要素の数</li>
+  <li><code>Enum.reject/2</code> — 条件を満たさない要素</li>
+</ul>
+`,
+    defaultCode: `numbers = [2, 5, 8, 13, 21, 34, 55]
+
+# any? / all?
+IO.inspect(Enum.any?(numbers, &(&1 > 50)))   # true
+IO.inspect(Enum.all?(numbers, &(&1 > 0)))    # true
+IO.inspect(Enum.all?(numbers, &(&1 < 50)))   # false
+
+# find / find_index
+IO.inspect(Enum.find(numbers, &(&1 > 10)))         # 13
+IO.inspect(Enum.find(numbers, :none, &(&1 > 100))) # :none
+IO.inspect(Enum.find_index(numbers, &(&1 > 10)))   # 3
+
+# count / reject
+IO.inspect(Enum.count(numbers, &rem(&1, 2) == 0))  # 偶数の数: 3
+IO.inspect(Enum.reject(numbers, &rem(&1, 2) == 0)) # 奇数だけ
+
+# 複合例：バリデーション
+users = [
+  %{name: "Alice", age: 25, active: true},
+  %{name: "Bob",   age: 17, active: true},
+  %{name: "Carol", age: 30, active: false},
+]
+all_adult?   = Enum.all?(users, &(&1.age >= 18))
+any_inactive = Enum.any?(users, &(!&1.active))
+minor        = Enum.find(users, &(&1.age < 18))
+IO.inspect({all_adult?, any_inactive, minor.name})`,
+  },
+{
+    chapter: "Ch.6: コレクションと Enum",
+    title: "Enum.scan / take_while / drop_while",
+    description: `
+<h2>Enum.scan / take_while / drop_while</h2>
+<p>累積計算や条件に基づく部分取得のための関数です。</p>
+<ul>
+  <li><code>Enum.scan/3</code> — reduce の中間値をすべて返す</li>
+  <li><code>Enum.take_while/2</code> — 条件が偽になるまで取得</li>
+  <li><code>Enum.drop_while/2</code> — 条件が偽になるまで捨てる</li>
+  <li><code>Enum.split_while/2</code> — take_while と drop_while を同時に</li>
+</ul>
+`,
+    defaultCode: `# scan — 累積の途中経過を返す（prefix sums など）
+IO.inspect(Enum.scan(1..6, 0, &+/2))
+# [1, 3, 6, 10, 15, 21] — 累積和の各ステップ
+
+# take_while / drop_while
+data = [2, 4, 6, 7, 8, 10]
+IO.inspect(Enum.take_while(data, &rem(&1, 2) == 0))  # [2, 4, 6]
+IO.inspect(Enum.drop_while(data, &rem(&1, 2) == 0))  # [7, 8, 10]
+
+# split_while — 2つ同時に
+{evens, rest} = Enum.split_while(data, &rem(&1, 2) == 0)
+IO.inspect({evens, rest})  # {[2,4,6], [7,8,10]}
+
+# 実用例：ログのセクション分割
+log = ["start", "info: a", "info: b", "error: oops", "info: c"]
+{header, body} = Enum.split_while(log, &String.starts_with?(&1, "info"))
+IO.inspect(header)
+IO.inspect(body)
+
+# scan でランニングmax
+temps = [22, 25, 20, 28, 19, 30]
+running_max = Enum.scan(temps, &max/2)
+IO.inspect(running_max)`,
+  },
+{
+    chapter: "Ch.6: コレクションと Enum",
+    title: "演習：コレクションと Enum",
+    description: `
+<h2>演習：コレクションと Enum</h2>
+<p>これまでの Enum 関数を組み合わせて実装してみましょう。</p>
+`,
+    defaultCode: `defmodule CollectionEx do
+  # 最も長い単語
+  def longest_word(words) do
+    Enum.max_by(words, &String.length/1)
+  end
+
+  # 偶数の2乗
+  def even_squares(numbers) do
+    numbers
+    |> Enum.filter(&rem(&1, 2) == 0)
+    |> Enum.map(&(&1 * &1))
+  end
+
+  # 出現頻度マップ
+  def frequencies(list) do
+    Enum.reduce(list, %{}, fn item, acc ->
+      Map.update(acc, item, 1, & &1 + 1)
+    end)
+  end
+end
+
+words = ["apple", "banana", "cherry", "fig", "elderberry"]
+IO.inspect(CollectionEx.longest_word(words))
+
+IO.inspect(CollectionEx.even_squares(1..10))
+
+IO.inspect(CollectionEx.frequencies(["a", "b", "a", "c", "b", "a"]))`,
+  },
+{
+    chapter: "Ch.3: パターンマッチ",
+    title: "構造体のパターンマッチ",
+    description: `
+<h2>構造体のパターンマッチ</h2>
+<p>構造体もマップと同じ記法でパターンマッチできます。型チェックも同時に行われるため、マップよりも安全です。</p>
+<pre><code>%StructName{field: value} = struct</code></pre>
+`,
+    defaultCode: `defmodule User do
+  defstruct [:name, :role, age: 0]
+end
+
+defmodule Post do
+  defstruct [:title, :author, :published]
+end
+
+alice = %User{name: "Alice", role: :admin, age: 30}
+bob   = %User{name: "Bob",   role: :user,  age: 25}
+
+# 構造体のパターンマッチ
+%User{name: name, role: :admin} = alice
+IO.puts("管理者: \#{name}")
+
+# case での構造体マッチ
+describe = fn
+  %User{role: :admin, name: n} -> "\#{n} は管理者"
+  %User{age: a, name: n} when a >= 18 -> "\#{n} は成人ユーザー"
+  %User{name: n} -> "\#{n} は未成年ユーザー"
+  %Post{title: t} -> "投稿: \#{t}"
+end
+
+IO.puts(describe.(alice))
+IO.puts(describe.(bob))
+IO.puts(describe.(%Post{title: "Hello"}))
+
+# 構造体は %{} でもマッチ可（型チェックなし）
+%{name: n} = alice
+IO.puts(n)
+
+# is_struct でガード
+check = fn s ->
+  cond do
+    is_struct(s, User) -> "User 型"
+    is_struct(s, Post) -> "Post 型"
+    true               -> "その他"
+  end
+end
+IO.puts(check.(alice))
+IO.puts(check.(%Post{title: "X"}))`,
+  },
+{
     chapter: "Ch.6: コレクションと Enum",
     title: "おめでとうございます！（Ch.6）",
     description: `
@@ -3384,237 +3362,7 @@ total = for %{price: p, stock: s} <- products, reduce: 0 do
 end
 IO.puts("総在庫金額: ¥\#{total}")`,
   },
-  {
-    chapter: "Ch.6: コレクションと Enum",
-    title: "Enum.zip / flat_map / chunk_every",
-    description: `
-<h2>Enum.zip / flat_map / chunk_every</h2>
-<p>Enum モジュールの便利な高階関数をさらに見ていきましょう。</p>
-<ul>
-  <li><code>Enum.zip/2</code> — 2つのリストをペアのリストにまとめる</li>
-  <li><code>Enum.flat_map/2</code> — map してから flatten（一段だけ）</li>
-  <li><code>Enum.chunk_every/2</code> — N 個ずつのチャンクに分割</li>
-  <li><code>Enum.zip_with/3</code> — zip しながら変換</li>
-</ul>
-`,
-    defaultCode: `# zip — 2つのリストを対応させる
-names = ["Alice", "Bob", "Carol"]
-scores = [85, 92, 78]
-pairs = Enum.zip(names, scores)
-IO.inspect(pairs)  # [{"Alice", 85}, {"Bob", 92}, {"Carol", 78}]
-
-# zip_with — zip + 変換
-totals = Enum.zip_with(names, scores, fn name, score ->
-  "\#{name}: \#{score}点"
-end)
-IO.inspect(totals)
-
-# flat_map — ネストを一段展開
-sentences = ["hello world", "foo bar baz"]
-words = Enum.flat_map(sentences, &String.split/1)
-IO.inspect(words)  # ["hello", "world", "foo", "bar", "baz"]
-
-# chunk_every — N 個ずつ分割
-IO.inspect(Enum.chunk_every(1..10, 3))
-# [[1,2,3],[4,5,6],[7,8,9],[10]]
-
-IO.inspect(Enum.chunk_every(1..10, 3, 2))
-# スライディングウィンドウ（step=2）`,
-  },
-  {
-    chapter: "Ch.6: コレクションと Enum",
-    title: "List モジュール",
-    description: `
-<h2>List モジュール</h2>
-<p><code>List</code> は Enum が持たない連結リスト固有の操作を提供します。</p>
-<ul>
-  <li><code>List.first/1</code>, <code>List.last/1</code></li>
-  <li><code>List.flatten/1</code> — 深くネストしたリストを平坦化</li>
-  <li><code>List.delete/2</code>, <code>List.delete_at/2</code></li>
-  <li><code>List.insert_at/3</code>, <code>List.replace_at/3</code></li>
-  <li><code>List.zip/1</code> — n 個のリストをまとめて zip</li>
-</ul>
-`,
-    defaultCode: `list = [3, 1, 4, 1, 5, 9, 2, 6]
-
-IO.inspect(List.first(list))          # 3
-IO.inspect(List.last(list))           # 6
-IO.inspect(List.delete(list, 1))      # 最初の 1 を削除
-IO.inspect(List.delete_at(list, 2))   # インデックス 2 を削除
-
-IO.inspect(List.insert_at(list, 3, 99))    # インデックス 3 に 99 挿入
-IO.inspect(List.replace_at(list, 0, 100))  # インデックス 0 を 100 に置換
-
-# flatten — 深いネストを解消
-nested = [1, [2, [3, [4, 5]]], 6]
-IO.inspect(List.flatten(nested))       # [1, 2, 3, 4, 5, 6]
-IO.inspect(List.flatten(nested, [99])) # 末尾にリストを付加
-
-# zip（3リスト以上）
-a = [1, 2, 3]
-b = ["a", "b", "c"]
-c = [:x, :y, :z]
-IO.inspect(List.zip([a, b, c]))`,
-  },
-  {
-    chapter: "Ch.6: コレクションと Enum",
-    title: "Map アクセスパターン",
-    description: `
-<h2>Map アクセスパターン</h2>
-<p>Map は Elixir で最も多用されるコレクションです。安全なアクセスパターンを覚えましょう。</p>
-<ul>
-  <li><code>Map.get/3</code> — デフォルト値付き取得</li>
-  <li><code>Map.fetch!/2</code> — 存在しなければ例外</li>
-  <li><code>Map.update/4</code> / <code>Map.update!/3</code></li>
-  <li><code>Map.merge/3</code> — 競合時の解決関数付きマージ</li>
-  <li><code>get_in/2</code>, <code>put_in/3</code>, <code>update_in/3</code> — ネストアクセス</li>
-</ul>
-`,
-    defaultCode: `user = %{name: "Alice", age: 30, address: %{city: "Tokyo", zip: "100-0001"}}
-
-# 安全なアクセス
-IO.inspect(Map.get(user, :name))               # "Alice"
-IO.inspect(Map.get(user, :email, "未設定"))    # "未設定"
-IO.inspect(Map.fetch(user, :age))              # {:ok, 30}
-IO.inspect(Map.fetch(user, :missing))          # :error
-
-# 更新
-user2 = Map.update!(user, :age, & &1 + 1)
-IO.inspect(user2.age)  # 31
-
-# マージ（競合解決）
-defaults = %{role: "user", active: true}
-overrides = %{role: "admin", name: "Bob"}
-merged = Map.merge(defaults, overrides, fn _k, _default, override -> override end)
-IO.inspect(merged)
-
-# ネストアクセス
-IO.inspect(get_in(user, [:address, :city]))         # "Tokyo"
-user3 = put_in(user, [:address, :city], "Osaka")
-IO.inspect(user3.address.city)
-user4 = update_in(user, [:address, :zip], &String.replace(&1, "-", ""))
-IO.inspect(user4.address.zip)`,
-  },
-  {
-    chapter: "Ch.6: コレクションと Enum",
-    title: "Enum.any? / all? / find / count",
-    description: `
-<h2>Enum.any? / all? / find / count</h2>
-<p>述語関数（predicate）を受け取る Enum 関数群です。</p>
-<ul>
-  <li><code>Enum.any?/2</code> — いずれかの要素が条件を満たすか</li>
-  <li><code>Enum.all?/2</code> — 全要素が条件を満たすか</li>
-  <li><code>Enum.find/3</code> — 条件を満たす最初の要素</li>
-  <li><code>Enum.find_index/2</code> — 条件を満たす最初のインデックス</li>
-  <li><code>Enum.count/2</code> — 条件を満たす要素の数</li>
-  <li><code>Enum.reject/2</code> — 条件を満たさない要素</li>
-</ul>
-`,
-    defaultCode: `numbers = [2, 5, 8, 13, 21, 34, 55]
-
-# any? / all?
-IO.inspect(Enum.any?(numbers, &(&1 > 50)))   # true
-IO.inspect(Enum.all?(numbers, &(&1 > 0)))    # true
-IO.inspect(Enum.all?(numbers, &(&1 < 50)))   # false
-
-# find / find_index
-IO.inspect(Enum.find(numbers, &(&1 > 10)))         # 13
-IO.inspect(Enum.find(numbers, :none, &(&1 > 100))) # :none
-IO.inspect(Enum.find_index(numbers, &(&1 > 10)))   # 3
-
-# count / reject
-IO.inspect(Enum.count(numbers, &rem(&1, 2) == 0))  # 偶数の数: 3
-IO.inspect(Enum.reject(numbers, &rem(&1, 2) == 0)) # 奇数だけ
-
-# 複合例：バリデーション
-users = [
-  %{name: "Alice", age: 25, active: true},
-  %{name: "Bob",   age: 17, active: true},
-  %{name: "Carol", age: 30, active: false},
-]
-all_adult?   = Enum.all?(users, &(&1.age >= 18))
-any_inactive = Enum.any?(users, &(!&1.active))
-minor        = Enum.find(users, &(&1.age < 18))
-IO.inspect({all_adult?, any_inactive, minor.name})`,
-  },
-  {
-    chapter: "Ch.6: コレクションと Enum",
-    title: "Enum.scan / take_while / drop_while",
-    description: `
-<h2>Enum.scan / take_while / drop_while</h2>
-<p>累積計算や条件に基づく部分取得のための関数です。</p>
-<ul>
-  <li><code>Enum.scan/3</code> — reduce の中間値をすべて返す</li>
-  <li><code>Enum.take_while/2</code> — 条件が偽になるまで取得</li>
-  <li><code>Enum.drop_while/2</code> — 条件が偽になるまで捨てる</li>
-  <li><code>Enum.split_while/2</code> — take_while と drop_while を同時に</li>
-</ul>
-`,
-    defaultCode: `# scan — 累積の途中経過を返す（prefix sums など）
-IO.inspect(Enum.scan(1..6, 0, &+/2))
-# [1, 3, 6, 10, 15, 21] — 累積和の各ステップ
-
-# take_while / drop_while
-data = [2, 4, 6, 7, 8, 10]
-IO.inspect(Enum.take_while(data, &rem(&1, 2) == 0))  # [2, 4, 6]
-IO.inspect(Enum.drop_while(data, &rem(&1, 2) == 0))  # [7, 8, 10]
-
-# split_while — 2つ同時に
-{evens, rest} = Enum.split_while(data, &rem(&1, 2) == 0)
-IO.inspect({evens, rest})  # {[2,4,6], [7,8,10]}
-
-# 実用例：ログのセクション分割
-log = ["start", "info: a", "info: b", "error: oops", "info: c"]
-{header, body} = Enum.split_while(log, &String.starts_with?(&1, "info"))
-IO.inspect(header)
-IO.inspect(body)
-
-# scan でランニングmax
-temps = [22, 25, 20, 28, 19, 30]
-running_max = Enum.scan(temps, &max/2)
-IO.inspect(running_max)`,
-  },
-  {
-    chapter: "Ch.6: コレクションと Enum",
-    title: "演習：コレクションと Enum",
-    description: `
-<h2>演習：コレクションと Enum</h2>
-<p>これまでの Enum 関数を組み合わせて実装してみましょう。</p>
-<ol>
-  <li>単語リストから最も長い単語を返す <code>longest_word/1</code></li>
-  <li>数値リストを偶数の2乗だけに変換する <code>even_squares/1</code></li>
-  <li>リストの出現頻度マップを返す <code>frequencies/1</code></li>
-</ol>
-`,
-    defaultCode: `defmodule CollectionEx do
-  # 最も長い単語
-  def longest_word(words) do
-    Enum.max_by(words, &String.length/1)
-  end
-
-  # 偶数の2乗
-  def even_squares(numbers) do
-    numbers
-    |> Enum.filter(&rem(&1, 2) == 0)
-    |> Enum.map(&(&1 * &1))
-  end
-
-  # 出現頻度マップ
-  def frequencies(list) do
-    Enum.reduce(list, %{}, fn item, acc ->
-      Map.update(acc, item, 1, & &1 + 1)
-    end)
-  end
-end
-
-words = ["apple", "banana", "cherry", "fig", "elderberry"]
-IO.inspect(CollectionEx.longest_word(words))
-
-IO.inspect(CollectionEx.even_squares(1..10))
-
-IO.inspect(CollectionEx.frequencies(["a", "b", "a", "c", "b", "a"]))`,
-  },
-  {
+{
     chapter: "Ch.7: 文字列とバイナリ",
     title: "文字列",
     description: `
@@ -3625,7 +3373,7 @@ IO.inspect(CollectionEx.frequencies(["a", "b", "a", "c", "b", "a"]))`,
   <li><code>String.length/1</code> - 文字数</li>
   <li><code>String.upcase/1</code>, <code>String.downcase/1</code></li>
   <li><code>String.split/2</code>, <code>String.join/2</code></li>
-  <li><code>String.replace/3</code>, <code>String.contains?/2</code></li>
+  <li><code>３/3</code>, <code>String.contains?/2</code></li>
   <li><code>String.trim/1</code>, <code>String.pad_leading/3</code></li>
 </ul>
 <h3>シジル（Sigils）</h3>
@@ -3679,7 +3427,7 @@ name = "Elixir"
 version = 1
 IO.puts("Language: \#{name}, Version: \#{version}")`,
   },
-  {
+{
     chapter: "Ch.7: 文字列とバイナリ",
     title: "String モジュール",
     description: `
@@ -3725,7 +3473,7 @@ IO.puts(String.pad_trailing("left", 10, "."))
 IO.puts(String.slice("Hello, World!", 7, 5))   # "World"
 IO.puts(String.slice("Hello", -3, 3))           # "llo"`,
   },
-  {
+{
     chapter: "Ch.7: 文字列とバイナリ",
     title: "シジル（Sigils）",
     description: `
@@ -3777,7 +3525,7 @@ IO.puts(is_list(charlist))
 IO.puts(~s|pipes work too|)
 IO.inspect(~w[array style]a)`,
   },
-  {
+{
     chapter: "Ch.7: 文字列とバイナリ",
     title: "ヒアドキュメント",
     description: `
@@ -3839,7 +3587,194 @@ raw = \"""
   \"""
 IO.puts(raw)`,
   },
-  {
+{
+    chapter: "Ch.7: 文字列とバイナリ",
+    title: "文字列の検索と置換",
+    description: `
+<h2>文字列の検索と置換</h2>
+<p><code>String</code> モジュールの検索・置換系関数をまとめて学びます。</p>
+<ul>
+  <li><code>String.contains?/2</code>, <code>String.starts_with?/2</code>, <code>String.ends_with?/2</code></li>
+  <li><code>String.replace/4</code> — 部分文字列・正規表現による置換</li>
+  <li><code>String.split/3</code> — セパレータや正規表現で分割</li>
+  <li><code>Regex.scan/3</code>, <code>Regex.replace/4</code></li>
+</ul>
+`,
+    defaultCode: `text = "The quick brown fox jumps over the lazy dog"
+
+# 検索
+IO.inspect(String.contains?(text, "fox"))       # true
+IO.inspect(String.starts_with?(text, "The"))    # true
+IO.inspect(String.ends_with?(text, "cat"))      # false
+
+# 置換
+IO.inspect(String.replace(text, "fox", "cat"))
+IO.inspect(String.replace(text, ~r/[aeiou]/, "*"))  # 母音をマスク
+
+# 分割
+IO.inspect(String.split(text))                  # スペース区切り
+IO.inspect(String.split("a,b,,c", ",", trim: true))
+
+# Regex
+pattern = ~r/\\b\\w{5}\\b/  # 5文字の単語
+words5 = Regex.scan(pattern, text) |> List.flatten()
+IO.inspect(words5)
+
+# キャプチャグループ
+date = "2025-03-15"
+case Regex.run(~r/(\\d{4})-(\\d{2})-(\\d{2})/, date) do
+  [_, y, m, d] -> IO.puts("年:\#{y} 月:\#{m} 日:\#{d}")
+  nil          -> IO.puts("マッチなし")
+end`,
+  },
+{
+    chapter: "Ch.7: 文字列とバイナリ",
+    title: "文字列のフォーマット",
+    description: `
+<h2>文字列のフォーマット</h2>
+<p>Elixir には複数の文字列フォーマット手段があります。</p>
+<ul>
+  <li>文字列補間 <code>"\#{expr}"</code> — 最もシンプル</li>
+  <li><code>:io_lib.format/2</code> — printf スタイル（Erlang互換）</li>
+  <li><code>String.pad_leading/3</code>, <code>String.pad_trailing/3</code></li>
+  <li><code>inspect/2</code> — デバッグ用の pretty print</li>
+</ul>
+`,
+    defaultCode: `# 文字列補間（最も一般的）
+name = "Alice"
+score = 95.5
+IO.puts("名前: \#{name}, スコア: \#{score}")
+
+# :io.format で printf スタイル
+:io.format("%-10s %5.1f%n", [name, score])
+
+# 数値のパディング
+for n <- [1, 10, 100, 1000] do
+  IO.puts(String.pad_leading(Integer.to_string(n), 6))
+end
+
+# 表形式の出力
+header = "| \#{String.pad_trailing("名前", 10)} | \#{String.pad_leading("スコア", 6)} |"
+sep    = "| \#{String.duplicate("-", 10)} | \#{String.duplicate("-", 6)} |"
+rows   = [{"Alice", 95}, {"Bob", 82}, {"Carol", 110}]
+
+IO.puts(header)
+IO.puts(sep)
+Enum.each(rows, fn {n, s} ->
+  IO.puts("| \#{String.pad_trailing(n, 10)} | \#{String.pad_leading(Integer.to_string(s), 6)} |")
+end)`,
+  },
+{
+    chapter: "Ch.7: 文字列とバイナリ",
+    title: "Charlist と Unicode",
+    description: `
+<h2>Charlist と Unicode</h2>
+<p>Elixir には2種類の文字列表現があります。</p>
+<ul>
+  <li><strong>String (binary)</strong> — <code>"hello"</code> — UTF-8 バイナリ（推奨）</li>
+  <li><strong>Charlist</strong> — <code>'hello'</code> — コードポイントの整数リスト（Erlang互換）</li>
+</ul>
+<p><code>String</code> モジュールは Unicode を正しく扱います（grapheme 単位）。</p>
+`,
+    defaultCode: `# String vs Charlist
+s = "hello"
+c = ~c'hello'
+IO.inspect(s)              # "hello"
+IO.inspect(c)              # ~c'hello' = [104, 101, 108, 108, 111]
+IO.inspect(is_binary(s))   # true
+IO.inspect(is_list(c))     # true
+
+# 変換
+IO.inspect(String.to_charlist("abc"))  # [97, 98, 99]
+IO.inspect(List.to_string([97, 98, 99]))  # "abc"
+
+# Unicode grapheme（絵文字・結合文字）
+emoji = "👩‍💻"
+IO.inspect(byte_size(emoji))           # バイト数（大きい）
+IO.inspect(String.length(emoji))       # グラフィーム数: 1
+
+japanese = "こんにちは"
+IO.inspect(String.length(japanese))    # 5（文字数）
+IO.inspect(byte_size(japanese))        # 15（UTF-8 は3バイト/文字）
+
+# コードポイント確認
+IO.inspect(String.codepoints("Å"))     # ["Å"]
+IO.inspect(?A)                         # 65（文字リテラル）`,
+  },
+{
+    chapter: "Ch.7: 文字列とバイナリ",
+    title: "バイナリ操作",
+    description: `
+<h2>バイナリ操作</h2>
+<p>Elixir の文字列はバイナリであり、バイナリ構文で直接操作できます。バイナリパターンマッチはネットワーク・ファイル処理に強力です。</p>
+`,
+    defaultCode: `# バイナリリテラルとパターンマッチ
+<<r, g, b>> = <<255, 128, 0>>
+IO.inspect({r, g, b})  # {255, 128, 0}
+
+# サイズ指定（ビット操作）
+<<val::16>> = <<1, 0>>  # ビッグエンディアン 16bit
+IO.inspect(val)          # 256
+
+# バイナリの結合とスライス
+bin = <<1, 2, 3, 4, 5>>
+IO.inspect(binary_part(bin, 1, 3))   # <<2, 3, 4>>
+IO.inspect(byte_size(bin))           # 5
+
+# 文字列はバイナリ
+<<h, rest::binary>> = "Hello"
+IO.inspect(h)            # 72 (= ?H)
+IO.inspect(rest)         # "ello"
+
+# バイナリ構築（プロトコル実装例）
+def encode_packet(type, payload) do
+  len = byte_size(payload)
+  <<type::8, len::16, payload::binary>>
+end
+
+packet = encode_packet(0x01, "ping")
+IO.inspect(packet, base: :hex)
+
+# デコード
+<<ptype::8, plen::16, data::binary>> = packet
+IO.inspect({ptype, plen, data})`,
+  },
+{
+    chapter: "Ch.7: 文字列とバイナリ",
+    title: "演習：文字列とバイナリ",
+    description: `
+<h2>演習：文字列とバイナリ</h2>
+<p>文字列操作の練習問題です。</p>
+`,
+    defaultCode: `defmodule StringEx do
+  def word_count(text) do
+    text
+    |> String.split(~r/\\s+/, trim: true)
+    |> length()
+  end
+
+  def title_case(text) do
+    text
+    |> String.split(" ")
+    |> Enum.map(&String.capitalize/1)
+    |> Enum.join(" ")
+  end
+
+  def palindrome?(text) do
+    normalized =
+      text
+      |> String.downcase()
+      |> String.replace(~r/[^a-z]/, "")
+    normalized == String.reverse(normalized)
+  end
+end
+
+IO.inspect(StringEx.word_count("  hello   world  foo  "))  # 3
+IO.inspect(StringEx.title_case("the quick brown fox"))
+IO.inspect(StringEx.palindrome?("A man a plan a canal Panama"))  # true
+IO.inspect(StringEx.palindrome?("hello"))                        # false`,
+  },
+{
     chapter: "Ch.7: 文字列とバイナリ",
     title: "おめでとうございます！（Ch.7）",
     description: `
@@ -3890,199 +3825,7 @@ IO.inspect(
   |> Enum.map(& &1["name"])
 )`,
   },
-  {
-    chapter: "Ch.7: 文字列とバイナリ",
-    title: "文字列の検索と置換",
-    description: `
-<h2>文字列の検索と置換</h2>
-<p><code>String</code> モジュールの検索・置換系関数をまとめて学びます。</p>
-<ul>
-  <li><code>String.contains?/2</code>, <code>String.starts_with?/2</code>, <code>String.ends_with?/2</code></li>
-  <li><code>String.replace/4</code> — 部分文字列・正規表現による置換</li>
-  <li><code>String.split/3</code> — セパレータや正規表現で分割</li>
-  <li><code>Regex.scan/3</code>, <code>Regex.replace/4</code></li>
-</ul>
-`,
-    defaultCode: `text = "The quick brown fox jumps over the lazy dog"
-
-# 検索
-IO.inspect(String.contains?(text, "fox"))       # true
-IO.inspect(String.starts_with?(text, "The"))    # true
-IO.inspect(String.ends_with?(text, "cat"))      # false
-
-# 置換
-IO.inspect(String.replace(text, "fox", "cat"))
-IO.inspect(String.replace(text, ~r/[aeiou]/, "*"))  # 母音をマスク
-
-# 分割
-IO.inspect(String.split(text))                  # スペース区切り
-IO.inspect(String.split("a,b,,c", ",", trim: true))
-
-# Regex
-pattern = ~r/\\b\\w{5}\\b/  # 5文字の単語
-words5 = Regex.scan(pattern, text) |> List.flatten()
-IO.inspect(words5)
-
-# キャプチャグループ
-date = "2025-03-15"
-case Regex.run(~r/(\\d{4})-(\\d{2})-(\\d{2})/, date) do
-  [_, y, m, d] -> IO.puts("年:\#{y} 月:\#{m} 日:\#{d}")
-  nil          -> IO.puts("マッチなし")
-end`,
-  },
-  {
-    chapter: "Ch.7: 文字列とバイナリ",
-    title: "文字列のフォーマット",
-    description: `
-<h2>文字列のフォーマット</h2>
-<p>Elixir には複数の文字列フォーマット手段があります。</p>
-<ul>
-  <li>文字列補間 <code>"\#{expr}"</code> — 最もシンプル</li>
-  <li><code>:io_lib.format/2</code> — printf スタイル（Erlang互換）</li>
-  <li><code>String.pad_leading/3</code>, <code>String.pad_trailing/3</code></li>
-  <li><code>inspect/2</code> — デバッグ用の pretty print</li>
-</ul>
-`,
-    defaultCode: `# 文字列補間（最も一般的）
-name = "Alice"
-score = 95.5
-IO.puts("名前: \#{name}, スコア: \#{score}")
-
-# :io.format で printf スタイル
-:io.format("%-10s %5.1f%n", [name, score])
-
-# 数値のパディング
-for n <- [1, 10, 100, 1000] do
-  IO.puts(String.pad_leading(Integer.to_string(n), 6))
-end
-
-# 表形式の出力
-header = "| \#{String.pad_trailing("名前", 10)} | \#{String.pad_leading("スコア", 6)} |"
-sep    = "| \#{String.duplicate("-", 10)} | \#{String.duplicate("-", 6)} |"
-rows   = [{"Alice", 95}, {"Bob", 82}, {"Carol", 110}]
-
-IO.puts(header)
-IO.puts(sep)
-Enum.each(rows, fn {n, s} ->
-  IO.puts("| \#{String.pad_trailing(n, 10)} | \#{String.pad_leading(Integer.to_string(s), 6)} |")
-end)`,
-  },
-  {
-    chapter: "Ch.7: 文字列とバイナリ",
-    title: "Charlist と Unicode",
-    description: `
-<h2>Charlist と Unicode</h2>
-<p>Elixir には2種類の文字列表現があります。</p>
-<ul>
-  <li><strong>String (binary)</strong> — <code>"hello"</code> — UTF-8 バイナリ（推奨）</li>
-  <li><strong>Charlist</strong> — <code>'hello'</code> — コードポイントの整数リスト（Erlang互換）</li>
-</ul>
-<p><code>String</code> モジュールは Unicode を正しく扱います（grapheme 単位）。</p>
-`,
-    defaultCode: `# String vs Charlist
-s = "hello"
-c = ~c'hello'
-IO.inspect(s)              # "hello"
-IO.inspect(c)              # ~c'hello' = [104, 101, 108, 108, 111]
-IO.inspect(is_binary(s))   # true
-IO.inspect(is_list(c))     # true
-
-# 変換
-IO.inspect(String.to_charlist("abc"))  # [97, 98, 99]
-IO.inspect(List.to_string([97, 98, 99]))  # "abc"
-
-# Unicode grapheme（絵文字・結合文字）
-emoji = "👩‍💻"
-IO.inspect(byte_size(emoji))           # バイト数（大きい）
-IO.inspect(String.length(emoji))       # グラフィーム数: 1
-
-japanese = "こんにちは"
-IO.inspect(String.length(japanese))    # 5（文字数）
-IO.inspect(byte_size(japanese))        # 15（UTF-8 は3バイト/文字）
-
-# コードポイント確認
-IO.inspect(String.codepoints("Å"))     # ["Å"]
-IO.inspect(?A)                         # 65（文字リテラル）`,
-  },
-  {
-    chapter: "Ch.7: 文字列とバイナリ",
-    title: "バイナリ操作",
-    description: `
-<h2>バイナリ操作</h2>
-<p>Elixir の文字列はバイナリであり、バイナリ構文で直接操作できます。バイナリパターンマッチはネットワーク・ファイル処理に強力です。</p>
-`,
-    defaultCode: `# バイナリリテラルとパターンマッチ
-<<r, g, b>> = <<255, 128, 0>>
-IO.inspect({r, g, b})  # {255, 128, 0}
-
-# サイズ指定（ビット操作）
-<<val::16>> = <<1, 0>>  # ビッグエンディアン 16bit
-IO.inspect(val)          # 256
-
-# バイナリの結合とスライス
-bin = <<1, 2, 3, 4, 5>>
-IO.inspect(binary_part(bin, 1, 3))   # <<2, 3, 4>>
-IO.inspect(byte_size(bin))           # 5
-
-# 文字列はバイナリ
-<<h, rest::binary>> = "Hello"
-IO.inspect(h)            # 72 (= ?H)
-IO.inspect(rest)         # "ello"
-
-# バイナリ構築（プロトコル実装例）
-def encode_packet(type, payload) do
-  len = byte_size(payload)
-  <<type::8, len::16, payload::binary>>
-end
-
-packet = encode_packet(0x01, "ping")
-IO.inspect(packet, base: :hex)
-
-# デコード
-<<ptype::8, plen::16, data::binary>> = packet
-IO.inspect({ptype, plen, data})`,
-  },
-  {
-    chapter: "Ch.7: 文字列とバイナリ",
-    title: "演習：文字列とバイナリ",
-    description: `
-<h2>演習：文字列とバイナリ</h2>
-<p>文字列操作の練習問題です。</p>
-<ol>
-  <li><code>word_count/1</code> — テキスト中の単語数をカウント</li>
-  <li><code>title_case/1</code> — 各単語の先頭を大文字にする</li>
-  <li><code>palindrome?/1</code> — 回文かどうか判定（英字のみ、大文字小文字無視）</li>
-</ol>
-`,
-    defaultCode: `defmodule StringEx do
-  def word_count(text) do
-    text
-    |> String.split(~r/\\s+/, trim: true)
-    |> length()
-  end
-
-  def title_case(text) do
-    text
-    |> String.split(" ")
-    |> Enum.map(&String.capitalize/1)
-    |> Enum.join(" ")
-  end
-
-  def palindrome?(text) do
-    normalized =
-      text
-      |> String.downcase()
-      |> String.replace(~r/[^a-z]/, "")
-    normalized == String.reverse(normalized)
-  end
-end
-
-IO.inspect(StringEx.word_count("  hello   world  foo  "))  # 3
-IO.inspect(StringEx.title_case("the quick brown fox"))
-IO.inspect(StringEx.palindrome?("A man a plan a canal Panama"))  # true
-IO.inspect(StringEx.palindrome?("hello"))                        # false`,
-  },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "プロセス",
     description: `
@@ -4168,7 +3911,7 @@ send(counter, :stop)
 :timer.sleep(5)
 IO.puts("プロセス生存確認: \#{Process.alive?(counter)}")`,
   },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "Task",
     description: `
@@ -4237,7 +3980,7 @@ IO.inspect(Task.yield(fast_task, 50))     # {:ok, "速い処理"}
 IO.inspect(Task.yield(slow_task, 50))     # nil（タイムアウト）
 Task.shutdown(slow_task)                  # クリーンアップ`,
   },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "リンクとモニター",
     description: `
@@ -4280,7 +4023,7 @@ receive do
 after 100 -> IO.puts("タイムアウト")
 end`,
   },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "Agent",
     description: `
@@ -4337,56 +4080,7 @@ IO.puts(fetch.(:result, fn -> 999 end))  # キャッシュから
 
 Agent.stop(counter)`,
   },
-  {
-    chapter: "Ch.8: プロセスと並行性",
-    title: "おめでとうございます！（Ch.8）",
-    description: `
-<h2>Ch.8 完了！</h2>
-<p>プロセスと並行性の章を修了しました！</p>
-<ul>
-  <li>✅ <strong>プロセス</strong> — spawn / send / receive</li>
-  <li>✅ <strong>リンクとモニター</strong> — 障害伝播の制御</li>
-  <li>✅ <strong>Agent</strong> — シンプルな状態管理</li>
-  <li>✅ <strong>Task</strong> — 非同期処理 / async_stream</li>
-</ul>
-<p>Elixir のプロセスは非常に軽量です（数KB、起動 ~1μs）。数十万プロセスを同時に動かせます。</p>
-<p>次は <strong>Ch.9: OTP と GenServer</strong> へ！</p>
-`,
-    defaultCode: `# 並行処理の実践：並列 HTTP フェッチをシミュレート
-
-defmodule FetchSimulator do
-  # 遅延付きフェッチをシミュレート
-  def fetch(url) do
-    delay = :rand.uniform(50)
-    :timer.sleep(delay)
-    {:ok, %{url: url, status: 200, delay_ms: delay}}
-  end
-end
-
-urls = [
-  "https://api.example.com/users",
-  "https://api.example.com/products",
-  "https://api.example.com/orders",
-  "https://api.example.com/inventory",
-  "https://api.example.com/stats",
-]
-
-# 並列フェッチ（Task.async_stream）
-start = System.monotonic_time(:millisecond)
-
-results =
-  urls
-  |> Task.async_stream(&FetchSimulator.fetch/1, max_concurrency: 5, timeout: 1000)
-  |> Enum.map(fn {:ok, result} -> result end)
-
-elapsed = System.monotonic_time(:millisecond) - start
-
-IO.puts("#{length(results)}件を #{elapsed}ms で取得（並列）")
-Enum.each(results, fn {:ok, r} ->
-  IO.puts("  \#{r.url} (\#{r.delay_ms}ms)")
-end)`,
-  },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "プロセスの監視と linked プロセス",
     description: `
@@ -4428,7 +4122,7 @@ receive do
     IO.puts("子プロセス終了: \#{inspect(reason)}")
 end`,
   },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "Agent — 状態の簡単な管理",
     description: `
@@ -4476,7 +4170,7 @@ end
 IO.inspect(fetch.(:foo))
 IO.inspect(fetch.(:foo))  # キャッシュヒット`,
   },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "Task — 非同期処理",
     description: `
@@ -4522,7 +4216,7 @@ results =
   |> Enum.map(fn {:ok, v} -> v end)
 IO.inspect(results)`,
   },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "メッセージパッシングパターン",
     description: `
@@ -4573,7 +4267,7 @@ receive do
 end
 send(echo, :stop)`,
   },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "プロセス辞書と ETS 入門",
     description: `
@@ -4614,7 +4308,7 @@ IO.inspect(:ets.tab2list(table))
 
 :ets.delete(table)`,
   },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "並行性のパターン — ワーカープール",
     description: `
@@ -4649,16 +4343,12 @@ IO.puts("成功: \#{length(results)} 件")
 IO.puts("失敗: \#{length(errors)} 件")
 IO.inspect(results)`,
   },
-  {
+{
     chapter: "Ch.8: プロセスと並行性",
     title: "演習：プロセスと並行性",
     description: `
 <h2>演習：プロセスと並行性</h2>
 <p>プロセスと並行性の理解を深める演習です。</p>
-<ol>
-  <li>ping-pong を 5 往復するプロセスペアを作る</li>
-  <li>Agent を使った簡単なカウンターモジュールを実装する</li>
-</ol>
 `,
     defaultCode: `# 演習 1: Ping-Pong 5往復
 defmodule PingPong do
@@ -4701,7 +4391,56 @@ IO.inspect(Counter.get(c))  # 0
 
 PingPong.start(3)`,
   },
-  {
+{
+    chapter: "Ch.8: プロセスと並行性",
+    title: "おめでとうございます！（Ch.8）",
+    description: `
+<h2>Ch.8 完了！</h2>
+<p>プロセスと並行性の章を修了しました！</p>
+<ul>
+  <li>✅ <strong>プロセス</strong> — spawn / send / receive</li>
+  <li>✅ <strong>リンクとモニター</strong> — 障害伝播の制御</li>
+  <li>✅ <strong>Agent</strong> — シンプルな状態管理</li>
+  <li>✅ <strong>Task</strong> — 非同期処理 / async_stream</li>
+</ul>
+<p>Elixir のプロセスは非常に軽量です（数KB、起動 ~1μs）。数十万プロセスを同時に動かせます。</p>
+<p>次は <strong>Ch.9: OTP と GenServer</strong> へ！</p>
+`,
+    defaultCode: `# 並行処理の実践：並列 HTTP フェッチをシミュレート
+
+defmodule FetchSimulator do
+  # 遅延付きフェッチをシミュレート
+  def fetch(url) do
+    delay = :rand.uniform(50)
+    :timer.sleep(delay)
+    {:ok, %{url: url, status: 200, delay_ms: delay}}
+  end
+end
+
+urls = [
+  "https://api.example.com/users",
+  "https://api.example.com/products",
+  "https://api.example.com/orders",
+  "https://api.example.com/inventory",
+  "https://api.example.com/stats",
+]
+
+# 並列フェッチ（Task.async_stream）
+start = System.monotonic_time(:millisecond)
+
+results =
+  urls
+  |> Task.async_stream(&FetchSimulator.fetch/1, max_concurrency: 5, timeout: 1000)
+  |> Enum.map(fn {:ok, result} -> result end)
+
+elapsed = System.monotonic_time(:millisecond) - start
+
+IO.puts("#{length(results)}件を #{elapsed}ms で取得（並列）")
+Enum.each(results, fn {:ok, r} ->
+  IO.puts("  \#{r.url} (\#{r.delay_ms}ms)")
+end)`,
+  },
+{
     chapter: "Ch.9: OTP と GenServer",
     title: "GenServer",
     description: `
@@ -4790,7 +4529,7 @@ IO.inspect(BankAccount.withdraw(account, 2000))
 IO.puts("最終残高: \#{BankAccount.balance(account)}")
 IO.inspect(BankAccount.history(account))`,
   },
-  {
+{
     chapter: "Ch.9: OTP と GenServer",
     title: "Supervisor",
     description: `
@@ -4845,7 +4584,7 @@ IO.puts("B: \#{Counter.get(:counter_b)}")
 IO.inspect(Supervisor.count_children(sup))
 IO.inspect(Supervisor.which_children(sup))`,
   },
-  {
+{
     chapter: "Ch.9: OTP と GenServer",
     title: "handle_info と定期実行",
     description: `
@@ -4893,7 +4632,387 @@ end
 :timer.sleep(120)
 IO.puts("合計 tick 数: \#{Ticker.get_ticks(ticker)}")`,
   },
-  {
+{
+    chapter: "Ch.9: OTP と GenServer",
+    title: "GenServer コールバックの詳細",
+    description: `
+<h2>GenServer コールバックの詳細</h2>
+<p>GenServer が持つ全コールバックを理解することで、より堅牢なサーバーを作れます。</p>
+<ul>
+  <li><code>init/1</code> — 起動時の初期化。<code>{:ok, state}</code> または <code>{:stop, reason}</code></li>
+  <li><code>handle_call/3</code> — 同期呼び出し。<code>{:reply, reply, state}</code></li>
+  <li><code>handle_cast/2</code> — 非同期呼び出し。<code>{:noreply, state}</code></li>
+  <li><code>handle_info/2</code> — プロセスへの任意メッセージ（タイマーなど）</li>
+  <li><code>terminate/2</code> — 終了時のクリーンアップ</li>
+</ul>
+`,
+    defaultCode: `defmodule RateLimiter do
+  use GenServer
+
+  # クライアント API
+  def start_link(max_per_sec), do: GenServer.start_link(__MODULE__, max_per_sec, name: __MODULE__)
+  def check(key), do: GenServer.call(__MODULE__, {:check, key})
+  def reset(key), do: GenServer.cast(__MODULE__, {:reset, key})
+
+  # コールバック
+  @impl true
+  def init(max_per_sec) do
+    # 毎秒カウンターをリセット
+    schedule_reset()
+    {:ok, %{max: max_per_sec, counts: %{}}}
+  end
+
+  @impl true
+  def handle_call({:check, key}, _from, state) do
+    count = Map.get(state.counts, key, 0)
+    if count < state.max do
+      new_state = update_in(state, [:counts, key], fn c -> (c || 0) + 1 end)
+      {:reply, :ok, new_state}
+    else
+      {:reply, {:error, :rate_limited}, state}
+    end
+  end
+
+  @impl true
+  def handle_cast({:reset, key}, state) do
+    {:noreply, update_in(state, [:counts], &Map.delete(&1, key))}
+  end
+
+  @impl true
+  def handle_info(:reset_all, state) do
+    schedule_reset()
+    {:noreply, %{state | counts: %{}}}
+  end
+
+  @impl true
+  def terminate(reason, _state) do
+    IO.puts("RateLimiter 終了: \#{inspect(reason)}")
+  end
+
+  defp schedule_reset, do: Process.send_after(self(), :reset_all, 1000)
+end
+
+{:ok, _} = RateLimiter.start_link(3)
+IO.inspect(RateLimiter.check("user:1"))  # :ok
+IO.inspect(RateLimiter.check("user:1"))  # :ok
+IO.inspect(RateLimiter.check("user:1"))  # :ok
+IO.inspect(RateLimiter.check("user:1"))  # {:error, :rate_limited}`,
+  },
+{
+    chapter: "Ch.9: OTP と GenServer",
+    title: "Supervisor — 子プロセスの監視",
+    description: `
+<h2>Supervisor — 子プロセスの監視</h2>
+<p>Supervisor はプロセスが落ちたときに自動再起動する OTP ビヘイビアです。「落ちたら再起動すればいい」というElixirの哲学（Let it crash）を実現します。</p>
+<ul>
+  <li><code>:one_for_one</code> — 落ちた子プロセスだけ再起動</li>
+  <li><code>:one_for_all</code> — 1つが落ちたら全員再起動</li>
+  <li><code>:rest_for_one</code> — 落ちたプロセスとその後に起動したものを再起動</li>
+</ul>
+`,
+    defaultCode: `defmodule MyWorker do
+  use GenServer
+
+  def start_link(name) do
+    GenServer.start_link(__MODULE__, name, name: name)
+  end
+
+  def ping(name), do: GenServer.call(name, :ping)
+
+  @impl true
+  def init(name) do
+    IO.puts("\#{name} 起動")
+    {:ok, name}
+  end
+
+  @impl true
+  def handle_call(:ping, _from, name) do
+    {:reply, "pong from \#{name}", name}
+  end
+end
+
+defmodule MyApp.Supervisor do
+  use Supervisor
+
+  def start_link(_) do
+    Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
+  end
+
+  @impl true
+  def init(:ok) do
+    children = [
+      {MyWorker, :worker_a},
+      {MyWorker, :worker_b},
+    ]
+    Supervisor.init(children, strategy: :one_for_one)
+  end
+end
+
+{:ok, sup} = MyApp.Supervisor.start_link(:ok)
+IO.inspect(MyWorker.ping(:worker_a))
+IO.inspect(MyWorker.ping(:worker_b))
+
+# Supervisor の子一覧を確認
+IO.inspect(Supervisor.which_children(sup))`,
+  },
+{
+    chapter: "Ch.9: OTP と GenServer",
+    title: "DynamicSupervisor — 動的な子プロセス管理",
+    description: `
+<h2>DynamicSupervisor — 動的な子プロセス管理</h2>
+<p><code>DynamicSupervisor</code> は実行時に子プロセスを動的に追加・削除できます。ユーザーセッション、ゲームルーム、コネクションプールなどに使います。</p>
+`,
+    defaultCode: `defmodule Session do
+  use GenServer
+
+  def start_link(user_id) do
+    GenServer.start_link(__MODULE__, user_id)
+  end
+
+  def get_user(pid), do: GenServer.call(pid, :get_user)
+
+  @impl true
+  def init(user_id) do
+    IO.puts("セッション開始: \#{user_id}")
+    {:ok, %{user_id: user_id, started_at: System.monotonic_time()}}
+  end
+
+  @impl true
+  def handle_call(:get_user, _from, state) do
+    {:reply, state.user_id, state}
+  end
+
+  @impl true
+  def terminate(_reason, state) do
+    IO.puts("セッション終了: \#{state.user_id}")
+  end
+end
+
+# DynamicSupervisor でセッション管理
+{:ok, dsup} = DynamicSupervisor.start_link(strategy: :one_for_one)
+
+# セッションを動的に追加
+{:ok, pid1} = DynamicSupervisor.start_child(dsup, {Session, "user_alice"})
+{:ok, pid2} = DynamicSupervisor.start_child(dsup, {Session, "user_bob"})
+
+IO.inspect(Session.get_user(pid1))
+IO.inspect(Session.get_user(pid2))
+IO.inspect(DynamicSupervisor.count_children(dsup))
+
+# セッションを終了
+DynamicSupervisor.terminate_child(dsup, pid1)
+IO.inspect(DynamicSupervisor.count_children(dsup))`,
+  },
+{
+    chapter: "Ch.9: OTP と GenServer",
+    title: "Registry — プロセス名前解決",
+    description: `
+<h2>Registry — プロセス名前解決</h2>
+<p><code>Registry</code> はプロセスに任意のキーで名前をつけ、検索できる OTP コンポーネントです。複数のプロセスを動的に管理するときに便利です。</p>
+`,
+    defaultCode: `# Registry を使ったプロセス名前解決
+{:ok, _} = Registry.start_link(keys: :unique, name: MyRegistry)
+
+defmodule NamedWorker do
+  use GenServer
+
+  def start_link(name) do
+    GenServer.start_link(__MODULE__, name,
+      name: {:via, Registry, {MyRegistry, name}})
+  end
+
+  def call(name, msg) do
+    GenServer.call({:via, Registry, {MyRegistry, name}}, msg)
+  end
+
+  @impl true
+  def init(name), do: {:ok, name}
+
+  @impl true
+  def handle_call(:whoami, _from, name), do: {:reply, name, name}
+end
+
+{:ok, _} = NamedWorker.start_link("alice")
+{:ok, _} = NamedWorker.start_link("bob")
+
+IO.inspect(NamedWorker.call("alice", :whoami))  # "alice"
+IO.inspect(NamedWorker.call("bob",   :whoami))  # "bob"
+
+# Registry で検索
+IO.inspect(Registry.lookup(MyRegistry, "alice"))
+IO.inspect(Registry.lookup(MyRegistry, "charlie"))  # []
+
+# Registry.dispatch — 全登録プロセスに一括送信
+IO.inspect(Registry.count(MyRegistry))`,
+  },
+{
+    chapter: "Ch.9: OTP と GenServer",
+    title: "Application ビヘイビア",
+    description: `
+<h2>Application ビヘイビア</h2>
+<p>OTP Application は Elixir/Erlang アプリケーションの最上位コンテナです。<code>mix new</code> で生成されたプロジェクトは自動的に Application を持ちます。</p>
+<ul>
+  <li><code>use Application</code> — ビヘイビアを実装</li>
+  <li><code>start/2</code> — アプリ起動時にトップレベル Supervisor を起動</li>
+  <li><code>mix.exs</code> の <code>application/0</code> でエントリポイントを指定</li>
+</ul>
+`,
+    defaultCode: `# Application の構造（実際の mix プロジェクトでの実装）
+defmodule MyApp.Application do
+  use Application
+
+  @impl true
+  def start(_type, _args) do
+    children = [
+      # ここに Supervisor ツリーの子を並べる
+      # {MyApp.Repo, []},
+      # {MyApp.Endpoint, []},
+      # {MyApp.Worker, name: MyApp.Worker},
+    ]
+
+    opts = [strategy: :one_for_one, name: MyApp.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+
+# mix.exs の設定（参考）
+# def application do
+#   [
+#     mod: {MyApp.Application, []},
+#     extra_applications: [:logger]
+#   ]
+# end
+
+# Application の基本動作を確認
+IO.puts("現在の OTP アプリ一覧:")
+for app <- Application.loaded_applications() do
+  {name, desc, vsn} = app
+  IO.puts("  \#{name} (\#{vsn}): \#{desc}")
+end`,
+  },
+{
+    chapter: "Ch.9: OTP と GenServer",
+    title: "ETS と永続化パターン",
+    description: `
+<h2>ETS と永続化パターン</h2>
+<p>ETS (Erlang Term Storage) を GenServer と組み合わせることで、高速なインメモリストアを実装できます。</p>
+`,
+    defaultCode: `defmodule FastStore do
+  use GenServer
+
+  @table :fast_store
+
+  # クライアント API
+  def start_link(_), do: GenServer.start_link(__MODULE__, nil, name: __MODULE__)
+  def put(k, v),     do: :ets.insert(@table, {k, v})   # ETS へ直接書込（高速）
+  def get(k),        do: case :ets.lookup(@table, k) do
+                           [{_k, v}] -> {:ok, v}
+                           []        -> :error
+                         end
+  def delete(k),     do: :ets.delete(@table, k)
+  def all,           do: :ets.tab2list(@table)
+
+  # GenServer が ETS テーブルの「所有者」として管理
+  @impl true
+  def init(_) do
+    :ets.new(@table, [:set, :public, :named_table, read_concurrency: true])
+    {:ok, nil}
+  end
+end
+
+{:ok, _} = FastStore.start_link(nil)
+
+FastStore.put("name", "Alice")
+FastStore.put("age", 30)
+FastStore.put("city", "Tokyo")
+
+IO.inspect(FastStore.get("name"))
+IO.inspect(FastStore.get("missing"))
+IO.inspect(FastStore.all())
+
+FastStore.delete("age")
+IO.inspect(FastStore.all())`,
+  },
+{
+    chapter: "Ch.9: OTP と GenServer",
+    title: "GenStage 入門 — バックプレッシャー",
+    description: `
+<h2>GenStage 入門 — バックプレッシャー</h2>
+<p>GenStage は Producer-Consumer パイプラインを実装する OTP ビヘイビアです。処理速度の差をバックプレッシャーで自動調整します（別途 <code>gen_stage</code> 依存が必要）。</p>
+<p>ここでは概念を理解するためのシミュレーション実装を示します。</p>
+`,
+    defaultCode: `# GenStage の概念シミュレーション（標準ライブラリのみ）
+# 実際の GenStage は {:gen_stage, "~> 1.0"} が必要
+
+defmodule Pipeline do
+  @doc """
+  Producer -> [Transformers] -> Consumer パイプラインを Stream で模倣
+  """
+  def run(source, stages, sink) do
+    source
+    |> Stream.transform(nil, fn item, _ -> {[item], nil} end)
+    |> then(fn s ->
+      Enum.reduce(stages, s, fn stage_fn, acc -> Stream.map(acc, stage_fn) end)
+    end)
+    |> Enum.each(sink)
+  end
+end
+
+# パイプライン定義
+source = 1..20
+
+stages = [
+  fn n -> n * 2 end,            # 2倍
+  fn n -> n + 1 end,            # +1
+  &Integer.to_string/1,         # 文字列化
+  fn s -> "item: \#{s}" end,    # フォーマット
+]
+
+sink = fn item -> IO.puts(item) end
+
+Pipeline.run(source, stages, sink)`,
+  },
+{
+    chapter: "Ch.9: OTP と GenServer",
+    title: "演習：OTP と GenServer",
+    description: `
+<h2>演習：OTP と GenServer</h2>
+<p>GenServer を使った実践的な課題です。</p>
+`,
+    defaultCode: `# 演習 1: スタック GenServer
+defmodule Stack do
+  use GenServer
+
+  def start_link(init \\\\ []), do: GenServer.start_link(__MODULE__, init, name: __MODULE__)
+  def push(item), do: GenServer.cast(__MODULE__, {:push, item})
+  def pop,        do: GenServer.call(__MODULE__, :pop)
+  def peek,       do: GenServer.call(__MODULE__, :peek)
+  def size,       do: GenServer.call(__MODULE__, :size)
+
+  @impl true
+  def init(init), do: {:ok, init}
+
+  @impl true
+  def handle_cast({:push, item}, stack), do: {:noreply, [item | stack]}
+
+  @impl true
+  def handle_call(:pop, _from, []),      do: {:reply, {:error, :empty}, []}
+  def handle_call(:pop, _from, [h|t]),   do: {:reply, {:ok, h}, t}
+  def handle_call(:peek, _from, []),     do: {:reply, {:error, :empty}, []}
+  def handle_call(:peek, _from, s=[h|_]), do: {:reply, {:ok, h}, s}
+  def handle_call(:size, _from, s),      do: {:reply, length(s), s}
+end
+
+{:ok, _} = Stack.start_link()
+Stack.push(1)
+Stack.push(2)
+Stack.push(3)
+IO.inspect(Stack.peek())  # {:ok, 3}
+IO.inspect(Stack.pop())   # {:ok, 3}
+IO.inspect(Stack.pop())   # {:ok, 2}
+IO.inspect(Stack.size())  # 1`,
+  },
+{
     chapter: "Ch.9: OTP と GenServer",
     title: "おめでとうございます！（Ch.9）",
     description: `
@@ -4969,391 +5088,7 @@ IO.inspect(Cache.get("user:1"))
 IO.inspect(Cache.get("user:3"))
 IO.inspect(Cache.stats())`,
   },
-  {
-    chapter: "Ch.9: OTP と GenServer",
-    title: "GenServer コールバックの詳細",
-    description: `
-<h2>GenServer コールバックの詳細</h2>
-<p>GenServer が持つ全コールバックを理解することで、より堅牢なサーバーを作れます。</p>
-<ul>
-  <li><code>init/1</code> — 起動時の初期化。<code>{:ok, state}</code> または <code>{:stop, reason}</code></li>
-  <li><code>handle_call/3</code> — 同期呼び出し。<code>{:reply, reply, state}</code></li>
-  <li><code>handle_cast/2</code> — 非同期呼び出し。<code>{:noreply, state}</code></li>
-  <li><code>handle_info/2</code> — プロセスへの任意メッセージ（タイマーなど）</li>
-  <li><code>terminate/2</code> — 終了時のクリーンアップ</li>
-</ul>
-`,
-    defaultCode: `defmodule RateLimiter do
-  use GenServer
-
-  # クライアント API
-  def start_link(max_per_sec), do: GenServer.start_link(__MODULE__, max_per_sec, name: __MODULE__)
-  def check(key), do: GenServer.call(__MODULE__, {:check, key})
-  def reset(key), do: GenServer.cast(__MODULE__, {:reset, key})
-
-  # コールバック
-  @impl true
-  def init(max_per_sec) do
-    # 毎秒カウンターをリセット
-    schedule_reset()
-    {:ok, %{max: max_per_sec, counts: %{}}}
-  end
-
-  @impl true
-  def handle_call({:check, key}, _from, state) do
-    count = Map.get(state.counts, key, 0)
-    if count < state.max do
-      new_state = update_in(state, [:counts, key], fn c -> (c || 0) + 1 end)
-      {:reply, :ok, new_state}
-    else
-      {:reply, {:error, :rate_limited}, state}
-    end
-  end
-
-  @impl true
-  def handle_cast({:reset, key}, state) do
-    {:noreply, update_in(state, [:counts], &Map.delete(&1, key))}
-  end
-
-  @impl true
-  def handle_info(:reset_all, state) do
-    schedule_reset()
-    {:noreply, %{state | counts: %{}}}
-  end
-
-  @impl true
-  def terminate(reason, _state) do
-    IO.puts("RateLimiter 終了: \#{inspect(reason)}")
-  end
-
-  defp schedule_reset, do: Process.send_after(self(), :reset_all, 1000)
-end
-
-{:ok, _} = RateLimiter.start_link(3)
-IO.inspect(RateLimiter.check("user:1"))  # :ok
-IO.inspect(RateLimiter.check("user:1"))  # :ok
-IO.inspect(RateLimiter.check("user:1"))  # :ok
-IO.inspect(RateLimiter.check("user:1"))  # {:error, :rate_limited}`,
-  },
-  {
-    chapter: "Ch.9: OTP と GenServer",
-    title: "Supervisor — 子プロセスの監視",
-    description: `
-<h2>Supervisor — 子プロセスの監視</h2>
-<p>Supervisor はプロセスが落ちたときに自動再起動する OTP ビヘイビアです。「落ちたら再起動すればいい」というElixirの哲学（Let it crash）を実現します。</p>
-<ul>
-  <li><code>:one_for_one</code> — 落ちた子プロセスだけ再起動</li>
-  <li><code>:one_for_all</code> — 1つが落ちたら全員再起動</li>
-  <li><code>:rest_for_one</code> — 落ちたプロセスとその後に起動したものを再起動</li>
-</ul>
-`,
-    defaultCode: `defmodule MyWorker do
-  use GenServer
-
-  def start_link(name) do
-    GenServer.start_link(__MODULE__, name, name: name)
-  end
-
-  def ping(name), do: GenServer.call(name, :ping)
-
-  @impl true
-  def init(name) do
-    IO.puts("\#{name} 起動")
-    {:ok, name}
-  end
-
-  @impl true
-  def handle_call(:ping, _from, name) do
-    {:reply, "pong from \#{name}", name}
-  end
-end
-
-defmodule MyApp.Supervisor do
-  use Supervisor
-
-  def start_link(_) do
-    Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
-  end
-
-  @impl true
-  def init(:ok) do
-    children = [
-      {MyWorker, :worker_a},
-      {MyWorker, :worker_b},
-    ]
-    Supervisor.init(children, strategy: :one_for_one)
-  end
-end
-
-{:ok, sup} = MyApp.Supervisor.start_link(:ok)
-IO.inspect(MyWorker.ping(:worker_a))
-IO.inspect(MyWorker.ping(:worker_b))
-
-# Supervisor の子一覧を確認
-IO.inspect(Supervisor.which_children(sup))`,
-  },
-  {
-    chapter: "Ch.9: OTP と GenServer",
-    title: "DynamicSupervisor — 動的な子プロセス管理",
-    description: `
-<h2>DynamicSupervisor — 動的な子プロセス管理</h2>
-<p><code>DynamicSupervisor</code> は実行時に子プロセスを動的に追加・削除できます。ユーザーセッション、ゲームルーム、コネクションプールなどに使います。</p>
-`,
-    defaultCode: `defmodule Session do
-  use GenServer
-
-  def start_link(user_id) do
-    GenServer.start_link(__MODULE__, user_id)
-  end
-
-  def get_user(pid), do: GenServer.call(pid, :get_user)
-
-  @impl true
-  def init(user_id) do
-    IO.puts("セッション開始: \#{user_id}")
-    {:ok, %{user_id: user_id, started_at: System.monotonic_time()}}
-  end
-
-  @impl true
-  def handle_call(:get_user, _from, state) do
-    {:reply, state.user_id, state}
-  end
-
-  @impl true
-  def terminate(_reason, state) do
-    IO.puts("セッション終了: \#{state.user_id}")
-  end
-end
-
-# DynamicSupervisor でセッション管理
-{:ok, dsup} = DynamicSupervisor.start_link(strategy: :one_for_one)
-
-# セッションを動的に追加
-{:ok, pid1} = DynamicSupervisor.start_child(dsup, {Session, "user_alice"})
-{:ok, pid2} = DynamicSupervisor.start_child(dsup, {Session, "user_bob"})
-
-IO.inspect(Session.get_user(pid1))
-IO.inspect(Session.get_user(pid2))
-IO.inspect(DynamicSupervisor.count_children(dsup))
-
-# セッションを終了
-DynamicSupervisor.terminate_child(dsup, pid1)
-IO.inspect(DynamicSupervisor.count_children(dsup))`,
-  },
-  {
-    chapter: "Ch.9: OTP と GenServer",
-    title: "Registry — プロセス名前解決",
-    description: `
-<h2>Registry — プロセス名前解決</h2>
-<p><code>Registry</code> はプロセスに任意のキーで名前をつけ、検索できる OTP コンポーネントです。複数のプロセスを動的に管理するときに便利です。</p>
-`,
-    defaultCode: `# Registry を使ったプロセス名前解決
-{:ok, _} = Registry.start_link(keys: :unique, name: MyRegistry)
-
-defmodule NamedWorker do
-  use GenServer
-
-  def start_link(name) do
-    GenServer.start_link(__MODULE__, name,
-      name: {:via, Registry, {MyRegistry, name}})
-  end
-
-  def call(name, msg) do
-    GenServer.call({:via, Registry, {MyRegistry, name}}, msg)
-  end
-
-  @impl true
-  def init(name), do: {:ok, name}
-
-  @impl true
-  def handle_call(:whoami, _from, name), do: {:reply, name, name}
-end
-
-{:ok, _} = NamedWorker.start_link("alice")
-{:ok, _} = NamedWorker.start_link("bob")
-
-IO.inspect(NamedWorker.call("alice", :whoami))  # "alice"
-IO.inspect(NamedWorker.call("bob",   :whoami))  # "bob"
-
-# Registry で検索
-IO.inspect(Registry.lookup(MyRegistry, "alice"))
-IO.inspect(Registry.lookup(MyRegistry, "charlie"))  # []
-
-# Registry.dispatch — 全登録プロセスに一括送信
-IO.inspect(Registry.count(MyRegistry))`,
-  },
-  {
-    chapter: "Ch.9: OTP と GenServer",
-    title: "Application ビヘイビア",
-    description: `
-<h2>Application ビヘイビア</h2>
-<p>OTP Application は Elixir/Erlang アプリケーションの最上位コンテナです。<code>mix new</code> で生成されたプロジェクトは自動的に Application を持ちます。</p>
-<ul>
-  <li><code>use Application</code> — ビヘイビアを実装</li>
-  <li><code>start/2</code> — アプリ起動時にトップレベル Supervisor を起動</li>
-  <li><code>mix.exs</code> の <code>application/0</code> でエントリポイントを指定</li>
-</ul>
-`,
-    defaultCode: `# Application の構造（実際の mix プロジェクトでの実装）
-defmodule MyApp.Application do
-  use Application
-
-  @impl true
-  def start(_type, _args) do
-    children = [
-      # ここに Supervisor ツリーの子を並べる
-      # {MyApp.Repo, []},
-      # {MyApp.Endpoint, []},
-      # {MyApp.Worker, name: MyApp.Worker},
-    ]
-
-    opts = [strategy: :one_for_one, name: MyApp.Supervisor]
-    Supervisor.start_link(children, opts)
-  end
-end
-
-# mix.exs の設定（参考）
-# def application do
-#   [
-#     mod: {MyApp.Application, []},
-#     extra_applications: [:logger]
-#   ]
-# end
-
-# Application の基本動作を確認
-IO.puts("現在の OTP アプリ一覧:")
-for app <- Application.loaded_applications() do
-  {name, desc, vsn} = app
-  IO.puts("  \#{name} (\#{vsn}): \#{desc}")
-end`,
-  },
-  {
-    chapter: "Ch.9: OTP と GenServer",
-    title: "ETS と永続化パターン",
-    description: `
-<h2>ETS と永続化パターン</h2>
-<p>ETS (Erlang Term Storage) を GenServer と組み合わせることで、高速なインメモリストアを実装できます。</p>
-`,
-    defaultCode: `defmodule FastStore do
-  use GenServer
-
-  @table :fast_store
-
-  # クライアント API
-  def start_link(_), do: GenServer.start_link(__MODULE__, nil, name: __MODULE__)
-  def put(k, v),     do: :ets.insert(@table, {k, v})   # ETS へ直接書込（高速）
-  def get(k),        do: case :ets.lookup(@table, k) do
-                           [{_k, v}] -> {:ok, v}
-                           []        -> :error
-                         end
-  def delete(k),     do: :ets.delete(@table, k)
-  def all,           do: :ets.tab2list(@table)
-
-  # GenServer が ETS テーブルの「所有者」として管理
-  @impl true
-  def init(_) do
-    :ets.new(@table, [:set, :public, :named_table, read_concurrency: true])
-    {:ok, nil}
-  end
-end
-
-{:ok, _} = FastStore.start_link(nil)
-
-FastStore.put("name", "Alice")
-FastStore.put("age", 30)
-FastStore.put("city", "Tokyo")
-
-IO.inspect(FastStore.get("name"))
-IO.inspect(FastStore.get("missing"))
-IO.inspect(FastStore.all())
-
-FastStore.delete("age")
-IO.inspect(FastStore.all())`,
-  },
-  {
-    chapter: "Ch.9: OTP と GenServer",
-    title: "GenStage 入門 — バックプレッシャー",
-    description: `
-<h2>GenStage 入門 — バックプレッシャー</h2>
-<p>GenStage は Producer-Consumer パイプラインを実装する OTP ビヘイビアです。処理速度の差をバックプレッシャーで自動調整します（別途 <code>gen_stage</code> 依存が必要）。</p>
-<p>ここでは概念を理解するためのシミュレーション実装を示します。</p>
-`,
-    defaultCode: `# GenStage の概念シミュレーション（標準ライブラリのみ）
-# 実際の GenStage は {:gen_stage, "~> 1.0"} が必要
-
-defmodule Pipeline do
-  @doc """
-  Producer -> [Transformers] -> Consumer パイプラインを Stream で模倣
-  """
-  def run(source, stages, sink) do
-    source
-    |> Stream.transform(nil, fn item, _ -> {[item], nil} end)
-    |> then(fn s ->
-      Enum.reduce(stages, s, fn stage_fn, acc -> Stream.map(acc, stage_fn) end)
-    end)
-    |> Enum.each(sink)
-  end
-end
-
-# パイプライン定義
-source = 1..20
-
-stages = [
-  fn n -> n * 2 end,            # 2倍
-  fn n -> n + 1 end,            # +1
-  &Integer.to_string/1,         # 文字列化
-  fn s -> "item: \#{s}" end,    # フォーマット
-]
-
-sink = fn item -> IO.puts(item) end
-
-Pipeline.run(source, stages, sink)`,
-  },
-  {
-    chapter: "Ch.9: OTP と GenServer",
-    title: "演習：OTP と GenServer",
-    description: `
-<h2>演習：OTP と GenServer</h2>
-<p>GenServer を使った実践的な課題です。</p>
-<ol>
-  <li>スタック GenServer — push/pop/peek をサポート</li>
-  <li>タイマー付きカウンター — 毎秒インクリメントし、現在値を取得できる</li>
-</ol>
-`,
-    defaultCode: `# 演習 1: スタック GenServer
-defmodule Stack do
-  use GenServer
-
-  def start_link(init \\\\ []), do: GenServer.start_link(__MODULE__, init, name: __MODULE__)
-  def push(item), do: GenServer.cast(__MODULE__, {:push, item})
-  def pop,        do: GenServer.call(__MODULE__, :pop)
-  def peek,       do: GenServer.call(__MODULE__, :peek)
-  def size,       do: GenServer.call(__MODULE__, :size)
-
-  @impl true
-  def init(init), do: {:ok, init}
-
-  @impl true
-  def handle_cast({:push, item}, stack), do: {:noreply, [item | stack]}
-
-  @impl true
-  def handle_call(:pop, _from, []),      do: {:reply, {:error, :empty}, []}
-  def handle_call(:pop, _from, [h|t]),   do: {:reply, {:ok, h}, t}
-  def handle_call(:peek, _from, []),     do: {:reply, {:error, :empty}, []}
-  def handle_call(:peek, _from, s=[h|_]), do: {:reply, {:ok, h}, s}
-  def handle_call(:size, _from, s),      do: {:reply, length(s), s}
-end
-
-{:ok, _} = Stack.start_link()
-Stack.push(1)
-Stack.push(2)
-Stack.push(3)
-IO.inspect(Stack.peek())  # {:ok, 3}
-IO.inspect(Stack.pop())   # {:ok, 3}
-IO.inspect(Stack.pop())   # {:ok, 2}
-IO.inspect(Stack.size())  # 1`,
-  },
-  {
+{
     chapter: "Ch.10: プロトコルとビヘイビア",
     title: "プロトコル",
     description: `
@@ -5438,7 +5173,7 @@ IO.puts("文字列化: \#{rect}")    # String.Chars が呼ばれる
 # Inspect プロトコル（デフォルト実装）
 IO.inspect(rect)`,
   },
-  {
+{
     chapter: "Ch.10: プロトコルとビヘイビア",
     title: "ビヘイビア（Behaviour）",
     description: `
@@ -5500,7 +5235,7 @@ end
 AlertService.alert(EmailNotifier, "admin@example.com", "サーバーアラート")
 AlertService.alert(SlackNotifier, "alerts", "CPU使用率90%超過")`,
   },
-  {
+{
     chapter: "Ch.10: プロトコルとビヘイビア",
     title: "組み込みプロトコル",
     description: `
@@ -5547,7 +5282,289 @@ IO.puts("青: \#{blue}")
 IO.inspect(red)
 IO.inspect([red, green, blue])`,
   },
-  {
+{
+    chapter: "Ch.10: プロトコルとビヘイビア",
+    title: "組み込みプロトコルの実装",
+    description: `
+<h2>組み込みプロトコルの実装</h2>
+<p>Elixir の標準プロトコルを自作の型に実装することで、言語の演算子・関数と統合できます。</p>
+<ul>
+  <li><code>String.Chars</code> — <code>to_string/1</code> および文字列補間</li>
+  <li><code>Inspect</code> — <code>inspect/1</code> および IEx の表示</li>
+  <li><code>Enumerable</code> — <code>Enum</code> / <code>Stream</code> のすべての関数</li>
+  <li><code>Collectable</code> — <code>Enum.into/2</code> のターゲットになれる</li>
+</ul>
+`,
+    defaultCode: `defmodule Money do
+  defstruct amount: 0, currency: :jpy
+
+  defimpl String.Chars do
+    def to_string(%Money{amount: a, currency: :jpy}) do
+      "¥\#{:erlang.float_to_binary(a * 1.0, decimals: 0) |> ＃(".0", "")}"
+    end
+    def to_string(%Money{amount: a, currency: c}) do３
+      "\#{a} \#{c}"
+    end
+  end
+
+  defimpl Inspect do
+    def inspect(%Money{amount: a, currency: c}, _opts) do
+      "#Money<\#{a} \#{c}>"
+    end
+  end
+end
+
+jpy = %Money{amount: 1500, currency: :jpy}
+usd = %Money{amount: 9.99, currency: :usd}
+
+IO.puts("金額: \#{jpy}")    # String.Chars を使用
+IO.puts("金額: \#{usd}")
+IO.inspect(jpy)             # Inspect を使用
+IO.inspect(usd)
+
+# 文字列補間で自動的に to_string が呼ばれる
+prices = [%Money{amount: 100}, %Money{amount: 200}, %Money{amount: 300}]
+Enum.each(prices, fn p -> IO.puts("  - \#{p}") end)`,
+  },
+{
+    chapter: "Ch.10: プロトコルとビヘイビア",
+    title: "Enumerable プロトコルの実装",
+    description: `
+<h2>Enumerable プロトコルの実装</h2>
+<p><code>Enumerable</code> を実装すると、カスタム型で <code>Enum</code> / <code>Stream</code> のあらゆる関数が使えるようになります。</p>
+`,
+    defaultCode: `defmodule NumberRange do
+  defstruct from: 0, to: 0, step: 1
+
+  defimpl Enumerable do
+    def count(%NumberRange{from: f, to: t, step: s}) do
+      {:ok, max(0, div(t - f, s) + 1)}
+    end
+
+    def member?(%NumberRange{from: f, to: t, step: s}, val) do
+      {:ok, val >= f and val <= t and rem(val - f, s) == 0}
+    end
+
+    def slice(_), do: {:error, __MODULE__}
+
+    def reduce(_, {:halt, acc}, _fun), do: {:halted, acc}
+    def reduce(range, {:suspend, acc}, fun), do: {:suspended, acc, &reduce(range, &1, fun)}
+    def reduce(%NumberRange{from: f, to: t, step: s}, {:cont, acc}, fun) when f <= t do
+      reduce(%NumberRange{from: f + s, to: t, step: s}, fun.(f, acc), fun)
+    end
+    def reduce(_range, {:cont, acc}, _fun), do: {:done, acc}
+  end
+end
+
+r = %NumberRange{from: 0, to: 20, step: 3}
+
+IO.inspect(Enum.to_list(r))       # [0, 3, 6, 9, 12, 15, 18]
+IO.inspect(Enum.count(r))         # 7
+IO.inspect(Enum.member?(r, 9))    # true
+IO.inspect(Enum.member?(r, 10))   # false
+IO.inspect(Enum.sum(r))
+IO.inspect(Enum.filter(r, &(&1 > 10)))`,
+  },
+{
+    chapter: "Ch.10: プロトコルとビヘイビア",
+    title: "ビヘイビアの応用 — プラグインアーキテクチャ",
+    description: `
+<h2>ビヘイビアの応用 — プラグインアーキテクチャ</h2>
+<p>ビヘイビアを使うと、実装を差し替え可能なプラグインアーキテクチャを構築できます。設定によって実装を切り替えるパターンです。</p>
+`,
+    defaultCode: `# 通知送信のビヘイビア
+defmodule Notifier do
+  @callback send(recipient :: String.t(), message :: String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  @callback name() :: String.t()
+end
+
+defmodule EmailNotifier do
+  @behaviour Notifier
+
+  @impl Notifier
+  def name, do: "Email"
+
+  @impl Notifier
+  def send(recipient, message) do
+    # 実際には SMTP 送信するが、ここでは模擬
+    IO.puts("[Email] To: \#{recipient} | \#{message}")
+    {:ok, "email sent"}
+  end
+end
+
+defmodule SlackNotifier do
+  @behaviour Notifier
+
+  @impl Notifier
+  def name, do: "Slack"
+
+  @impl Notifier
+  def send(recipient, message) do
+    IO.puts("[Slack] @\#{recipient}: \#{message}")
+    {:ok, "slack message posted"}
+  end
+end
+
+defmodule NotificationService do
+  def notify(notifiers, recipient, message) do
+    Enum.map(notifiers, fn mod ->
+      {mod.name(), mod.send(recipient, message)}
+    end)
+  end
+end
+
+results = NotificationService.notify(
+  [EmailNotifier, SlackNotifier],
+  "alice",
+  "デプロイが完了しました"
+)
+IO.inspect(results)`,
+  },
+{
+    chapter: "Ch.10: プロトコルとビヘイビア",
+    title: "Access ビヘイビアとカスタムデータ構造",
+    description: `
+<h2>Access ビヘイビアとカスタムデータ構造</h2>
+<p><code>Access</code> ビヘイビアを実装すると、<code>data[:key]</code> のブラケット構文と <code>get_in/put_in/update_in</code> のパス指定が使えるようになります。</p>
+`,
+    defaultCode: `defmodule CaseInsensitiveMap do
+  defstruct data: %{}
+
+  def new(kv_list \\\\ []) do
+    data = Enum.into(kv_list, %{}, fn {k, v} ->
+      {String.downcase(to_string(k)), v}
+    end)
+    %CaseInsensitiveMap{data: data}
+  end
+
+  def put(%CaseInsensitiveMap{data: d} = m, key, val) do
+    %{m | data: Map.put(d, String.downcase(to_string(key)), val)}
+  end
+
+  defimpl Access do
+    def fetch(%CaseInsensitiveMap{data: d}, key) do
+      Map.fetch(d, String.downcase(to_string(key)))
+    end
+
+    def get_and_update(%CaseInsensitiveMap{data: d} = m, key, fun) do
+      k = String.downcase(to_string(key))
+      {get, new_data} = Map.get_and_update(d, k, fun)
+      {get, %{m | data: new_data}}
+    end
+
+    def pop(%CaseInsensitiveMap{data: d} = m, key) do
+      k = String.downcase(to_string(key))
+      {Map.get(d, k), %{m | data: Map.delete(d, k)}}
+    end
+  end
+end
+
+map = CaseInsensitiveMap.new(Content_Type: "application/json", Accept: "text/html")
+
+IO.inspect(map["content_type"])     # "application/json"
+IO.inspect(map["ACCEPT"])           # "text/html"
+IO.inspect(map["missing"])          # nil`,
+  },
+{
+    chapter: "Ch.10: プロトコルとビヘイビア",
+    title: "プロトコルの統合 — Inspect カスタマイズ",
+    description: `
+<h2>プロトコルの統合 — Inspect カスタマイズ</h2>
+<p>複雑なデータ構造を開発者にわかりやすく表示するため、<code>Inspect</code> プロトコルをカスタマイズします。セキュリティ上も重要（パスワードなどをマスク）。</p>
+`,
+    defaultCode: `defmodule User do
+  defstruct [:id, :name, :email, :password_hash, :api_key]
+
+  defimpl Inspect do
+    import Inspect.Algebra
+
+    def inspect(%User{} = u, opts) do
+      # センシティブフィールドをマスク
+      masked = %{u |
+        password_hash: "**REDACTED**",
+        api_key: mask_key(u.api_key)
+      }
+      concat([
+        "#User<",
+        "id=\#{u.id}",
+        " name=", inspect(u.name, opts),
+        " email=", inspect(u.email, opts),
+        " api_key=", inspect(masked.api_key, opts),
+        ">"
+      ])
+    end
+
+    defp mask_key(nil), do: nil
+    defp mask_key(key) when byte_size(key) <= 4, do: "****"
+    defp mask_key(key) do
+      prefix = String.slice(key, 0, 4)
+      "\#{prefix}..." <> String.duplicate("*", 6)
+    end
+  end
+end
+
+user = %User{
+  id: 1,
+  name: "Alice",
+  email: "alice@example.com",
+  password_hash: "$bcrypt$...",
+  api_key: "sk_live_abcdefghijklmn"
+}
+
+IO.inspect(user)
+
+# リスト内でも機能する
+users = [user, %User{id: 2, name: "Bob", email: "bob@example.com"}]
+IO.inspect(users)`,
+  },
+{
+    chapter: "Ch.10: プロトコルとビヘイビア",
+    title: "演習：プロトコルとビヘイビア",
+    description: `
+<h2>演習：プロトコルとビヘイビア</h2>
+<p>プロトコルとビヘイビアの理解を深める演習です。</p>
+`,
+    defaultCode: `# 演習 1: Describable プロトコル
+defprotocol Describable do
+  @doc "人間が読めるテキスト説明を返す"
+  def describe(value)
+end
+
+defimpl Describable, for: Integer do
+  def describe(n) when n >= 0, do: "\#{n}（非負の整数）"
+  def describe(n),             do: "\#{n}（負の整数）"
+end
+
+defimpl Describable, for: List do
+  def describe([]),  do: "空のリスト"
+  def describe(lst), do: "\#{length(lst)}要素のリスト: \#{inspect(Enum.take(lst, 3))}..."
+end
+
+defimpl Describable, for: Map do
+  def describe(m) when map_size(m) == 0, do: "空のマップ"
+  def describe(m), do: "\#{map_size(m)}キーのマップ: \#{inspect(Map.keys(m))}"
+end
+
+IO.puts(Describable.describe(42))
+IO.puts(Describable.describe(-5))
+IO.puts(Describable.describe([1, 2, 3, 4, 5]))
+IO.puts(Describable.describe(%{a: 1, b: 2, c: 3}))
+
+# 演習 2: Logger ビヘイビア
+defmodule AppLogger do
+  @callback log(level :: atom(), message :: String.t()) :: :ok
+end
+
+defmodule ConsoleLogger do
+  @behaviour AppLogger
+  @impl AppLogger
+  def log(level, msg), do: IO.puts("[#{level |> Atom.to_string() |> String.upcase()}] \#{msg}")
+end
+
+ConsoleLogger.log(:info, "アプリ起動")
+ConsoleLogger.log(:error, "接続失敗")`,
+  },
+{
     chapter: "Ch.10: プロトコルとビヘイビア",
     title: "おめでとうございます！（Ch.10）",
     description: `
@@ -5617,293 +5634,7 @@ MemoryStorage.save("user:1", %{name: "Alice"})
 IO.inspect(MemoryStorage.load("user:1"))
 IO.inspect(MemoryStorage.load("user:99"))`,
   },
-  {
-    chapter: "Ch.10: プロトコルとビヘイビア",
-    title: "組み込みプロトコルの実装",
-    description: `
-<h2>組み込みプロトコルの実装</h2>
-<p>Elixir の標準プロトコルを自作の型に実装することで、言語の演算子・関数と統合できます。</p>
-<ul>
-  <li><code>String.Chars</code> — <code>to_string/1</code> および文字列補間</li>
-  <li><code>Inspect</code> — <code>inspect/1</code> および IEx の表示</li>
-  <li><code>Enumerable</code> — <code>Enum</code> / <code>Stream</code> のすべての関数</li>
-  <li><code>Collectable</code> — <code>Enum.into/2</code> のターゲットになれる</li>
-</ul>
-`,
-    defaultCode: `defmodule Money do
-  defstruct amount: 0, currency: :jpy
-
-  defimpl String.Chars do
-    def to_string(%Money{amount: a, currency: :jpy}) do
-      "¥\#{:erlang.float_to_binary(a * 1.0, decimals: 0) |> String.replace(".0", "")}"
-    end
-    def to_string(%Money{amount: a, currency: c}) do
-      "\#{a} \#{c}"
-    end
-  end
-
-  defimpl Inspect do
-    def inspect(%Money{amount: a, currency: c}, _opts) do
-      "#Money<\#{a} \#{c}>"
-    end
-  end
-end
-
-jpy = %Money{amount: 1500, currency: :jpy}
-usd = %Money{amount: 9.99, currency: :usd}
-
-IO.puts("金額: \#{jpy}")    # String.Chars を使用
-IO.puts("金額: \#{usd}")
-IO.inspect(jpy)             # Inspect を使用
-IO.inspect(usd)
-
-# 文字列補間で自動的に to_string が呼ばれる
-prices = [%Money{amount: 100}, %Money{amount: 200}, %Money{amount: 300}]
-Enum.each(prices, fn p -> IO.puts("  - \#{p}") end)`,
-  },
-  {
-    chapter: "Ch.10: プロトコルとビヘイビア",
-    title: "Enumerable プロトコルの実装",
-    description: `
-<h2>Enumerable プロトコルの実装</h2>
-<p><code>Enumerable</code> を実装すると、カスタム型で <code>Enum</code> / <code>Stream</code> のあらゆる関数が使えるようになります。</p>
-`,
-    defaultCode: `defmodule NumberRange do
-  defstruct from: 0, to: 0, step: 1
-
-  defimpl Enumerable do
-    def count(%NumberRange{from: f, to: t, step: s}) do
-      {:ok, max(0, div(t - f, s) + 1)}
-    end
-
-    def member?(%NumberRange{from: f, to: t, step: s}, val) do
-      {:ok, val >= f and val <= t and rem(val - f, s) == 0}
-    end
-
-    def slice(_), do: {:error, __MODULE__}
-
-    def reduce(_, {:halt, acc}, _fun), do: {:halted, acc}
-    def reduce(range, {:suspend, acc}, fun), do: {:suspended, acc, &reduce(range, &1, fun)}
-    def reduce(%NumberRange{from: f, to: t, step: s}, {:cont, acc}, fun) when f <= t do
-      reduce(%NumberRange{from: f + s, to: t, step: s}, fun.(f, acc), fun)
-    end
-    def reduce(_range, {:cont, acc}, _fun), do: {:done, acc}
-  end
-end
-
-r = %NumberRange{from: 0, to: 20, step: 3}
-
-IO.inspect(Enum.to_list(r))       # [0, 3, 6, 9, 12, 15, 18]
-IO.inspect(Enum.count(r))         # 7
-IO.inspect(Enum.member?(r, 9))    # true
-IO.inspect(Enum.member?(r, 10))   # false
-IO.inspect(Enum.sum(r))
-IO.inspect(Enum.filter(r, &(&1 > 10)))`,
-  },
-  {
-    chapter: "Ch.10: プロトコルとビヘイビア",
-    title: "ビヘイビアの応用 — プラグインアーキテクチャ",
-    description: `
-<h2>ビヘイビアの応用 — プラグインアーキテクチャ</h2>
-<p>ビヘイビアを使うと、実装を差し替え可能なプラグインアーキテクチャを構築できます。設定によって実装を切り替えるパターンです。</p>
-`,
-    defaultCode: `# 通知送信のビヘイビア
-defmodule Notifier do
-  @callback send(recipient :: String.t(), message :: String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  @callback name() :: String.t()
-end
-
-defmodule EmailNotifier do
-  @behaviour Notifier
-
-  @impl Notifier
-  def name, do: "Email"
-
-  @impl Notifier
-  def send(recipient, message) do
-    # 実際には SMTP 送信するが、ここでは模擬
-    IO.puts("[Email] To: \#{recipient} | \#{message}")
-    {:ok, "email sent"}
-  end
-end
-
-defmodule SlackNotifier do
-  @behaviour Notifier
-
-  @impl Notifier
-  def name, do: "Slack"
-
-  @impl Notifier
-  def send(recipient, message) do
-    IO.puts("[Slack] @\#{recipient}: \#{message}")
-    {:ok, "slack message posted"}
-  end
-end
-
-defmodule NotificationService do
-  def notify(notifiers, recipient, message) do
-    Enum.map(notifiers, fn mod ->
-      {mod.name(), mod.send(recipient, message)}
-    end)
-  end
-end
-
-results = NotificationService.notify(
-  [EmailNotifier, SlackNotifier],
-  "alice",
-  "デプロイが完了しました"
-)
-IO.inspect(results)`,
-  },
-  {
-    chapter: "Ch.10: プロトコルとビヘイビア",
-    title: "Access ビヘイビアとカスタムデータ構造",
-    description: `
-<h2>Access ビヘイビアとカスタムデータ構造</h2>
-<p><code>Access</code> ビヘイビアを実装すると、<code>data[:key]</code> のブラケット構文と <code>get_in/put_in/update_in</code> のパス指定が使えるようになります。</p>
-`,
-    defaultCode: `defmodule CaseInsensitiveMap do
-  defstruct data: %{}
-
-  def new(kv_list \\\\ []) do
-    data = Enum.into(kv_list, %{}, fn {k, v} ->
-      {String.downcase(to_string(k)), v}
-    end)
-    %CaseInsensitiveMap{data: data}
-  end
-
-  def put(%CaseInsensitiveMap{data: d} = m, key, val) do
-    %{m | data: Map.put(d, String.downcase(to_string(key)), val)}
-  end
-
-  defimpl Access do
-    def fetch(%CaseInsensitiveMap{data: d}, key) do
-      Map.fetch(d, String.downcase(to_string(key)))
-    end
-
-    def get_and_update(%CaseInsensitiveMap{data: d} = m, key, fun) do
-      k = String.downcase(to_string(key))
-      {get, new_data} = Map.get_and_update(d, k, fun)
-      {get, %{m | data: new_data}}
-    end
-
-    def pop(%CaseInsensitiveMap{data: d} = m, key) do
-      k = String.downcase(to_string(key))
-      {Map.get(d, k), %{m | data: Map.delete(d, k)}}
-    end
-  end
-end
-
-map = CaseInsensitiveMap.new(Content_Type: "application/json", Accept: "text/html")
-
-IO.inspect(map["content_type"])     # "application/json"
-IO.inspect(map["ACCEPT"])           # "text/html"
-IO.inspect(map["missing"])          # nil`,
-  },
-  {
-    chapter: "Ch.10: プロトコルとビヘイビア",
-    title: "プロトコルの統合 — Inspect カスタマイズ",
-    description: `
-<h2>プロトコルの統合 — Inspect カスタマイズ</h2>
-<p>複雑なデータ構造を開発者にわかりやすく表示するため、<code>Inspect</code> プロトコルをカスタマイズします。セキュリティ上も重要（パスワードなどをマスク）。</p>
-`,
-    defaultCode: `defmodule User do
-  defstruct [:id, :name, :email, :password_hash, :api_key]
-
-  defimpl Inspect do
-    import Inspect.Algebra
-
-    def inspect(%User{} = u, opts) do
-      # センシティブフィールドをマスク
-      masked = %{u |
-        password_hash: "**REDACTED**",
-        api_key: mask_key(u.api_key)
-      }
-      concat([
-        "#User<",
-        "id=\#{u.id}",
-        " name=", inspect(u.name, opts),
-        " email=", inspect(u.email, opts),
-        " api_key=", inspect(masked.api_key, opts),
-        ">"
-      ])
-    end
-
-    defp mask_key(nil), do: nil
-    defp mask_key(key) when byte_size(key) <= 4, do: "****"
-    defp mask_key(key) do
-      prefix = String.slice(key, 0, 4)
-      "\#{prefix}..." <> String.duplicate("*", 6)
-    end
-  end
-end
-
-user = %User{
-  id: 1,
-  name: "Alice",
-  email: "alice@example.com",
-  password_hash: "$bcrypt$...",
-  api_key: "sk_live_abcdefghijklmn"
-}
-
-IO.inspect(user)
-
-# リスト内でも機能する
-users = [user, %User{id: 2, name: "Bob", email: "bob@example.com"}]
-IO.inspect(users)`,
-  },
-  {
-    chapter: "Ch.10: プロトコルとビヘイビア",
-    title: "演習：プロトコルとビヘイビア",
-    description: `
-<h2>演習：プロトコルとビヘイビア</h2>
-<p>プロトコルとビヘイビアの理解を深める演習です。</p>
-<ol>
-  <li>独自の <code>Describable</code> プロトコルを定義し、複数の型に実装する</li>
-  <li>Logger ビヘイビアを定義し、コンソールとバッファの2実装を作る</li>
-</ol>
-`,
-    defaultCode: `# 演習 1: Describable プロトコル
-defprotocol Describable do
-  @doc "人間が読めるテキスト説明を返す"
-  def describe(value)
-end
-
-defimpl Describable, for: Integer do
-  def describe(n) when n >= 0, do: "\#{n}（非負の整数）"
-  def describe(n),             do: "\#{n}（負の整数）"
-end
-
-defimpl Describable, for: List do
-  def describe([]),  do: "空のリスト"
-  def describe(lst), do: "\#{length(lst)}要素のリスト: \#{inspect(Enum.take(lst, 3))}..."
-end
-
-defimpl Describable, for: Map do
-  def describe(m) when map_size(m) == 0, do: "空のマップ"
-  def describe(m), do: "\#{map_size(m)}キーのマップ: \#{inspect(Map.keys(m))}"
-end
-
-IO.puts(Describable.describe(42))
-IO.puts(Describable.describe(-5))
-IO.puts(Describable.describe([1, 2, 3, 4, 5]))
-IO.puts(Describable.describe(%{a: 1, b: 2, c: 3}))
-
-# 演習 2: Logger ビヘイビア
-defmodule AppLogger do
-  @callback log(level :: atom(), message :: String.t()) :: :ok
-end
-
-defmodule ConsoleLogger do
-  @behaviour AppLogger
-  @impl AppLogger
-  def log(level, msg), do: IO.puts("[#{level |> Atom.to_string() |> String.upcase()}] \#{msg}")
-end
-
-ConsoleLogger.log(:info, "アプリ起動")
-ConsoleLogger.log(:error, "接続失敗")`,
-  },
-  {
+{
     chapter: "Ch.11: 型仕様とメタプログラミング",
     title: "型仕様とドキュメント",
     description: `
@@ -5994,7 +5725,7 @@ IO.puts(is_list([1, 2]))
 IO.puts(is_map(%{a: 1}))
 IO.puts(is_function(&IO.puts/1))`,
   },
-  {
+{
     chapter: "Ch.11: 型仕様とメタプログラミング",
     title: "マクロ",
     description: `
@@ -6082,7 +5813,7 @@ MyMacros.assert(1 + 1 == 3)
 ast = quote do: Enum.map([1, 2, 3], &(&1 * 2))
 IO.puts(Macro.to_string(ast))`,
   },
-  {
+{
     chapter: "Ch.11: 型仕様とメタプログラミング",
     title: "use と __using__",
     description: `
@@ -6140,16 +5871,12 @@ IO.inspect(UserForm.validate(%{name: "Alice", email: "alice@example.com"}))
 IO.inspect(UserForm.validate(%{name: "A", email: "a@b.com"}))
 IO.inspect(UserForm.validate(%{name: nil, email: nil}))`,
   },
-  {
+{
     chapter: "Ch.11: 型仕様とメタプログラミング",
     title: "演習：型仕様とメタプログラミング",
     description: `
 <h2>演習：型仕様とメタプログラミング</h2>
 <p>型仕様とメタプログラミングの総合演習です。</p>
-<ol>
-  <li><code>@spec</code> を使ったモジュール — Dialyzer 対応の型アノテーション付き実装</li>
-  <li>シンプルなマクロ — <code>unless/2</code> と <code>while/2</code> を実装</li>
-</ol>
 `,
     defaultCode: `# 演習 1: @spec 付きモジュール
 defmodule MathUtils do
@@ -6196,7 +5923,7 @@ times 3 do
   IO.puts("こんにちは！")
 end`,
   },
-  {
+{
     chapter: "Ch.11: 型仕様とメタプログラミング",
     title: "おめでとうございます！ツアー完了",
     description: `
@@ -6274,5 +6001,5 @@ Enum.each(TaskManager.list(), fn t ->
   IO.puts("\#{status} [\#{t.id}] \#{t.title}")
 end)
 IO.inspect(TaskManager.stats())`,
-  },
+  }
 ];
