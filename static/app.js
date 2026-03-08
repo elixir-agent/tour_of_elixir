@@ -58,6 +58,8 @@ async function forceDisableBrowserCache() {
     if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
       const regs = await navigator.serviceWorker.getRegistrations();
       for (const reg of regs) {
+        // Keep coi-serviceworker — it provides COOP/COEP headers needed for WASM
+        if (reg.active?.scriptURL?.includes("coi-serviceworker")) continue;
         await reg.unregister();
       }
     }
